@@ -13,6 +13,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum CategoryName {
+  Application
+  FrontEnd
+  Infrastructure
+  MachineLearning
+  Mobile
+  Security
+  Culture
+}
+
 model User {
   id       Int    @id @default(autoincrement())
   name     String
@@ -22,15 +32,26 @@ model User {
 }
 
 model Blog {
-  id         Int          @id @default(autoincrement())
-  createdAt  DateTime     @default(now())
-  author     User?        @relation(fields: [authorId], references: [id])
+  id         Int                 @id @default(autoincrement())
+  title      String
+  content    String
+  createdAt  DateTime            @default(now())
+  author     User?               @relation(fields: [authorId], references: [id])
   authorId   Int?
-  categories Categories[]
+  categories CategoriesOnBlogs[]
 }
 
-model Categories {
-  id    Int    @id @default(autoincrement())
-  name  String
-  blogs Blog[]
+model Category {
+  id    Int                 @id @default(autoincrement())
+  name  CategoryName        @unique
+  blogs CategoriesOnBlogs[]
+}
+
+model CategoriesOnBlogs {
+  blogId     Int
+  categoryId Int
+  blog       Blog     @relation(fields: [blogId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@id([blogId, categoryId])
 }

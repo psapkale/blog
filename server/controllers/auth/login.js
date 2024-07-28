@@ -1,4 +1,5 @@
 const prisma = require("../../db/prisma");
+const jwt = require("jsonwebtoken");
 
 const login = async (req, res) => {
    const { email, password } = req.body;
@@ -18,8 +19,10 @@ const login = async (req, res) => {
          throw new Error("Incorrect Password");
       }
 
+      const token = jwt.sign({ email }, process.env.JWT_SECRET);
+
       res.status(200).json({
-         user,
+         token,
       });
    } catch (err) {
       res.status(500).json({ error: err.message });

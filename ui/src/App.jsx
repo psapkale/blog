@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./App.css";
 import { Navbar } from "./components/Navbar";
 import { ThemeContext } from "./providers/themeProvider";
+import { FeaturedBlogs } from "./components/FeaturedBlogs";
+import { LatestBlogs } from "./components/LatestBlogs";
 
 function App() {
    const [theme, setTheme] = useState("light");
@@ -20,6 +22,8 @@ function App() {
             }}
          >
             <Navbar />
+            <FeaturedBlogs />
+            <LatestBlogs offset={6} />
          </ThemeContext.Provider>
       </div>
    );

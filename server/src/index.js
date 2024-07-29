@@ -8,6 +8,8 @@ const { getBlogByTitle } = require("../controllers/blogs/getBlogByTitle");
 const {
    getBlogsByCategory,
 } = require("../controllers/blogs/getBlogsByCategory");
+const { getFeaturedBlogs } = require("../controllers/blogs/getFeaturedBlogs");
+const { getLatestBlogs } = require("../controllers/blogs/getLatestBlogs");
 const app = express();
 const apiRouter = express.Router();
 
@@ -23,6 +25,8 @@ apiRouter.post("/login", login);
 apiRouter.post("/create-blog", authMiddleware, createBlog);
 apiRouter.get("/blog/:title", getBlogByTitle);
 apiRouter.get("/all/:categoryName", getBlogsByCategory);
+apiRouter.get("/featured", getFeaturedBlogs);
+apiRouter.get("/latest", getLatestBlogs);
 
 app.use("/api", apiRouter);
 

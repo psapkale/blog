@@ -1,7 +1,7 @@
 const prisma = require("../../db/prisma");
 
 const getLatestBlogs = async (req, res) => {
-   const { offset } = req.body;
+   const { offset } = req.params;
 
    try {
       if (!offset) {

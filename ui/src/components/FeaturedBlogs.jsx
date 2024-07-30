@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { ThemeContext } from "../providers/themeProvider";
 
 export const FeaturedBlogs = () => {
+   const { theme } = useContext(ThemeContext);
    const [blogs, setBlogs] = useState([]);
-   const shuffledIndex = shuffleNumbers();
+   const shuffledIndex = useMemo(() => shuffleNumbers(), []);
    const colors = [
       "#b4c8e1",
       "#ffafa5",
@@ -73,7 +75,14 @@ export const FeaturedBlogs = () => {
 
    return (
       <div className="w-[66%] mx-auto my-20 h-fit px-10">
-         <h1 className="text-[12px] font-[600]">Featured</h1>
+         <h1
+            style={{
+               color: theme === "light" ? "black" : "white",
+            }}
+            className="duration-200 text-[12px] font-[600]"
+         >
+            Featured
+         </h1>
          <div className="mt-10 flex gap-10 items-start justify-evenly">
             {blogs?.map((blog, i) => {
                const s = blog.createdAt;
@@ -92,15 +101,32 @@ export const FeaturedBlogs = () => {
                         src={`/img${index}.jpg`}
                         alt={index}
                         style={{
-                           backgroundColor: colors[index],
+                           backgroundColor:
+                              theme === "light"
+                                 ? colors[index] || "white"
+                                 : "#cccccc",
                         }}
                         className={`w-[96%] h-[196px] object-cover`}
                      />
                      <div className="-translate-y-10 -translate-x-4">
-                        <h1 className="bg-black text-white px-2 py-1 hover:underline">
+                        <h1
+                           style={{
+                              backgroundColor:
+                                 theme === "light"
+                                    ? "black"
+                                    : colors[index] || "white",
+                              color: theme === "light" ? "white" : "black",
+                           }}
+                           className="duration-200 px-2 py-1 hover:underline"
+                        >
                            {blog.title}
                         </h1>
-                        <div className="mt-1 text-[11px] flex gap-2 items-center justify-start text-nowrap flex-wrap">
+                        <div
+                           style={{
+                              color: theme === "light" ? "black" : "white",
+                           }}
+                           className="mt-1 text-[11px] flex gap-2 items-center justify-start text-nowrap flex-wrap"
+                        >
                            <b className="text-[12px]">/ /</b>
                            <h1 className="">{createdAt}</h1>
                            <>•</>

@@ -41,7 +41,7 @@ export const Navbar = () => {
          id="navbar"
          className={`bg-black duration-300 delay-200 ${
             show ? "-translate-y-full" : "translate-y-0"
-         } w-full text-white flex items-center justify-between py-4 px-10 sticky top-0`}
+         } w-full text-white flex items-center justify-between py-4 px-10 sticky top-0 z-20`}
       >
          <a href="/" className="text-[16px] font-[1000] cursor-pointer">
             Blog.dev

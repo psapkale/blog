@@ -10,6 +10,9 @@ const {
 } = require("../controllers/blogs/getBlogsByCategory");
 const { getFeaturedBlogs } = require("../controllers/blogs/getFeaturedBlogs");
 const { getLatestBlogs } = require("../controllers/blogs/getLatestBlogs");
+const {
+   getLatestBlogsByCategory,
+} = require("../controllers/blogs/getLatestBlogsByCategory");
 const app = express();
 const apiRouter = express.Router();
 
@@ -27,6 +30,7 @@ apiRouter.get("/blog/:title", getBlogByTitle);
 apiRouter.get("/all/:categoryName", getBlogsByCategory);
 apiRouter.get("/featured", getFeaturedBlogs);
 apiRouter.get("/latest/:offset", getLatestBlogs);
+apiRouter.get("/:category/:offset", getLatestBlogsByCategory);
 
 app.use("/api", apiRouter);
 

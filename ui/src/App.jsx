@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Navbar } from "./components/Navbar";
 import { ThemeContext } from "./providers/themeProvider";
-import { FeaturedBlogs } from "./components/FeaturedBlogs";
-import { CategoryBlogModal } from "./components/CategoryBlogsModal";
+import { Hero } from "./pages/Hero";
+import { BlogModal } from "./pages/BlogModal";
 
 function App() {
    const [theme, setTheme] = useState("light");
@@ -14,7 +15,7 @@ function App() {
    }
 
    return (
-      <div>
+      <Router>
          <ThemeContext.Provider
             value={{
                theme,
@@ -22,29 +23,12 @@ function App() {
             }}
          >
             <Navbar />
-            <FeaturedBlogs />
-            <CategoryBlogModal offset={6} />
-            <CategoryBlogModal
-               type={"Application"}
-               color="#b4dc19"
-               offset={3}
-            />
-            <CategoryBlogModal type={"FrontEnd"} color="#14c8eb" offset={3} />
-            <CategoryBlogModal
-               type={"Infrastructure"}
-               color="#c8aff0"
-               offset={3}
-            />
-            <CategoryBlogModal
-               type={"MachineLearning"}
-               color="#ffb9b0"
-               offset={3}
-            />
-            <CategoryBlogModal type={"Mobile"} color="#ff8c19" offset={3} />
-            <CategoryBlogModal type={"Security"} color="#b4c8e1" offset={3} />
-            <CategoryBlogModal type={"Culture"} color="#fa551e" offset={3} />
+            <Routes>
+               <Route path="/" element={<Hero />} />
+               <Route path="/:category/:title" element={<BlogModal />} />
+            </Routes>
          </ThemeContext.Provider>
-      </div>
+      </Router>
    );
 }
 

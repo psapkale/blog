@@ -13,6 +13,7 @@ const { getLatestBlogs } = require("../controllers/blogs/getLatestBlogs");
 const {
    getLatestBlogsByCategory,
 } = require("../controllers/blogs/getLatestBlogsByCategory");
+const { updateBlog } = require("../controllers/blogs/updateBlog");
 const app = express();
 const apiRouter = express.Router();
 
@@ -31,6 +32,7 @@ apiRouter.get("/all/:categoryName", getBlogsByCategory);
 apiRouter.get("/featured", getFeaturedBlogs);
 apiRouter.get("/latest/:offset", getLatestBlogs);
 apiRouter.get("/:category/:offset", getLatestBlogsByCategory);
+apiRouter.put("/update/:title", authMiddleware, updateBlog);
 
 app.use("/api", apiRouter);
 

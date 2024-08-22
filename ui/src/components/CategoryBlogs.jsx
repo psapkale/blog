@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../providers/themeProvider";
 import { CategoryBlogModal } from "./CategoryBlogModal";
+import { toast } from "react-hot-toast";
 
 export const CategoryBlogs = ({ type = "Latest", color = "white", offset }) => {
    const { theme } = useContext(ThemeContext);
@@ -22,7 +23,7 @@ export const CategoryBlogs = ({ type = "Latest", color = "white", offset }) => {
          const res = await data.json();
          setBlogs(res.latestBlogs);
       } catch (err) {
-         console.log(err);
+         toast.error(err.message);
       }
    }
 

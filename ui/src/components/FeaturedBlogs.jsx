@@ -1,6 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { ThemeContext } from "../providers/themeProvider";
 import { FeaturedBlogModal } from "./FeaturedBlogModal";
+import { toast } from "react-hot-toast";
 
 export const FeaturedBlogs = () => {
    const { theme } = useContext(ThemeContext);
@@ -15,7 +16,7 @@ export const FeaturedBlogs = () => {
 
          setBlogs(res?.featuredBlogs);
       } catch (err) {
-         console.log(err);
+         toast.error(err.message);
       }
    }
 

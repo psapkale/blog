@@ -5,6 +5,7 @@ import { Navbar } from "./components/Navbar";
 import { ThemeContext } from "./providers/themeProvider";
 import { Hero } from "./pages/Hero";
 import { BlogModal } from "./pages/BlogModal";
+import { Toaster } from "react-hot-toast";
 
 function App() {
    const [theme, setTheme] = useState("light");
@@ -16,6 +17,7 @@ function App() {
 
    return (
       <Router>
+         <Toaster />
          <ThemeContext.Provider
             value={{
                theme,

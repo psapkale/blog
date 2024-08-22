@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { shuffleNumbers } from "../utils/shuffleNumbers";
 import { ThemeContext } from "../providers/themeProvider";
 import { monthString } from "../utils/monthString";
+import { Editor } from "../components/EditorSpace";
+import { toast } from "react-hot-toast";
 
 export const BlogModal = () => {
    const { theme } = useContext(ThemeContext);
@@ -35,10 +37,36 @@ export const BlogModal = () => {
          const res = await data.json();
          setBlog(res.blog);
       } catch (err) {
-         console.log(err);
+         toast.error(err.message);
       }
    }
-   console.log(blog);
+
+   async function onChange(content) {
+      const newContent = JSON.stringify(content);
+
+      try {
+         const data = await fetch(
+            `${import.meta.env.VITE_BLOG_SERVER_URL}/update/${title}`,
+            {
+               method: "PUT",
+               headers: {
+                  // const token = document.cookie.get(user).token;
+                  // `Bearer ${token}`
+                  Authorization:
+                     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtpcmF0QGdtYWlsLmNvbSIsImlhdCI6MTcyMjE1NDc3NH0.-EQyWOhBgK4OxvZRZP7OQ6j8VjPjA-nNvzLRKAYPwA8",
+                  "Content-Type": "application/json",
+               },
+               body: JSON.stringify({
+                  content: newContent,
+               }),
+            }
+         );
+         const res = await data.json();
+      } catch (err) {
+         toast.error(err.message);
+      }
+   }
+
    useEffect(() => {
       fetchBlog();
    }, []);
@@ -88,13 +116,14 @@ export const BlogModal = () => {
                      style={{
                         color: theme === "light" ? "black" : "white",
                      }}
-                     className="mt-20 w-[70%] mx-auto text-[14px] font-[200]"
+                     className="mt-20 w-[70%] mx-auto"
                   >
-                     {blog?.content}
+                     <Editor content={blog?.content} onChange={onChange} />
                   </div>
                </div>
             )}
          </div>
+         <div className="h-[160vh] w-full" />
       </div>
    );
 };

@@ -5,6 +5,10 @@ const login = async (req, res) => {
    const { email, password } = req.body;
 
    try {
+      if (!email || !password) {
+         throw new Error("Email or password not provided");
+      }
+
       const user = await prisma.user.findUnique({
          where: {
             email,

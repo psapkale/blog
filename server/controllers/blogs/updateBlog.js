@@ -2,12 +2,16 @@ const prisma = require("../../db/prisma");
 
 const updateBlog = async (req, res) => {
    const { title } = req.params;
-   const { ...rest } = req.body;
+   const { content } = req.body;
    const userEmail = req.userEmail;
 
    try {
       if (!title) {
          throw new Error("Blog title not provided");
+      }
+
+      if (!content) {
+         throw new Error("New content not provided");
       }
 
       const blog = await prisma.blog.findFirst({
@@ -37,7 +41,7 @@ const updateBlog = async (req, res) => {
       const newBlog = await prisma.blog.update({
          where: blog,
          data: {
-            ...rest,
+            content,
          },
       });
 

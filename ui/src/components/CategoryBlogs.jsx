@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../providers/themeProvider";
 import { CategoryBlogModal } from "./CategoryBlogModal";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 
 export const CategoryBlogs = ({ type = "Latest", color = "white", offset }) => {
    const { theme } = useContext(ThemeContext);
@@ -9,21 +10,20 @@ export const CategoryBlogs = ({ type = "Latest", color = "white", offset }) => {
 
    async function fetchLatest() {
       try {
-         let data;
+         let res;
          if (type === "Latest") {
-            data = await fetch(
+            res = await axios.get(
                `${import.meta.env.VITE_BLOG_SERVER_URL}/latest/${offset}`
             );
          } else {
             const strictType = type.replace(" ", "");
-            data = await fetch(
+            res = await axios.get(
                `${import.meta.env.VITE_BLOG_SERVER_URL}/${strictType}/${offset}`
             );
          }
-         const res = await data.json();
-         setBlogs(res.latestBlogs);
+         setBlogs(res?.data?.latestBlogs);
       } catch (err) {
-         toast.error(err.message);
+         toast.error(err.response.data.error);
       }
    }
 

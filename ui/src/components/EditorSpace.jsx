@@ -4,7 +4,7 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { useContext } from "react";
 import { ThemeContext } from "../providers/themeProvider";
 
-export const Editor = ({ content, onChange }) => {
+export const Editor = ({ content, onChange, editable }) => {
    const parsedContent = JSON.parse(JSON.parse(content));
    const editor = useCreateBlockNote({
       initialContent: parsedContent,
@@ -19,7 +19,7 @@ export const Editor = ({ content, onChange }) => {
       <BlockNoteView
          editor={editor}
          theme={theme}
-         editable={true}
+         editable={editable}
          onChange={handleChange}
       />
    );

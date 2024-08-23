@@ -5,8 +5,10 @@ import { ThemeContext } from "../providers/themeProvider";
 import { monthString } from "../utils/monthString";
 import { Editor } from "../components/EditorSpace";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 
 export const BlogModal = () => {
+   const [editable, setEditable] = useState(false);
    const { theme } = useContext(ThemeContext);
    const [blog, setBlog] = useState();
    const { category, title } = useParams();
@@ -28,42 +30,62 @@ export const BlogModal = () => {
       "#14c8eb",
       "#ff8c19",
    ];
+   const token = JSON.parse(sessionStorage.getItem("userDetails"))?.token;
+
+   async function isAuthor() {
+      if (
+         sessionStorage.getItem("userDetails")?.email === blog?.author?.email
+      ) {
+         setEditable(true);
+      }
+      // try {
+      //    const res = await axios.post(
+      //       `${import.meta.env.VITE_BLOG_SERVER_URL}/login`,
+      //       {
+      //          email: "kirat@gmail.com",
+      //          password: "aA123456",
+      //       }
+      //    );
+      //    const userData = {
+      //       token: res?.data?.token,
+      //       email: res?.data?.email,
+      //    };
+      //    sessionStorage.setItem("userDetails", JSON.stringify(userData));
+      // } catch (err) {
+      //    toast.error("Failed to retreive author");
+      // }
+   }
 
    async function fetchBlog() {
       try {
-         const data = await fetch(
+         const res = await axios(
             `${import.meta.env.VITE_BLOG_SERVER_URL}/blog/${title}`
          );
-         const res = await data.json();
-         setBlog(res.blog);
+         setBlog(res?.data?.blog);
       } catch (err) {
-         toast.error(err.message);
+         toast.error(err.response.data.error);
       }
+      isAuthor();
    }
 
    async function onChange(content) {
       const newContent = JSON.stringify(content);
 
       try {
-         const data = await fetch(
+         const res = await axios.put(
             `${import.meta.env.VITE_BLOG_SERVER_URL}/update/${title}`,
             {
-               method: "PUT",
+               content: newContent,
+            },
+            {
                headers: {
-                  // const token = document.cookie.get(user).token;
-                  // `Bearer ${token}`
-                  Authorization:
-                     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtpcmF0QGdtYWlsLmNvbSIsImlhdCI6MTcyMjE1NDc3NH0.-EQyWOhBgK4OxvZRZP7OQ6j8VjPjA-nNvzLRKAYPwA8",
+                  Authorization: `Bearer ${token}`,
                   "Content-Type": "application/json",
                },
-               body: JSON.stringify({
-                  content: newContent,
-               }),
             }
          );
-         const res = await data.json();
       } catch (err) {
-         toast.error(err.message);
+         toast.error(err.response.data.error);
       }
    }
 
@@ -118,7 +140,11 @@ export const BlogModal = () => {
                      }}
                      className="mt-20 w-[70%] mx-auto"
                   >
-                     <Editor content={blog?.content} onChange={onChange} />
+                     <Editor
+                        content={blog?.content}
+                        onChange={onChange}
+                        editable={editable}
+                     />
                   </div>
                </div>
             )}

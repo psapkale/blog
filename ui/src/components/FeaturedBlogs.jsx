@@ -2,6 +2,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { ThemeContext } from "../providers/themeProvider";
 import { FeaturedBlogModal } from "./FeaturedBlogModal";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 
 export const FeaturedBlogs = () => {
    const { theme } = useContext(ThemeContext);
@@ -9,14 +10,13 @@ export const FeaturedBlogs = () => {
 
    async function fetchData() {
       try {
-         const data = await fetch(
+         const res = await axios.get(
             `${import.meta.env.VITE_BLOG_SERVER_URL}/featured`
          );
-         const res = await data.json();
 
-         setBlogs(res?.featuredBlogs);
+         setBlogs(res?.data?.featuredBlogs);
       } catch (err) {
-         toast.error(err.message);
+         toast.error(err.response.data.error);
       }
    }
 

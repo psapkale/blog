@@ -39,7 +39,9 @@ const updateBlog = async (req, res) => {
 
       // ! changing title will result in `Blog not found` after the change as it is used in the url on client-side
       const newBlog = await prisma.blog.update({
-         where: blog,
+         where: {
+            id: blog.id,
+         },
          data: {
             content,
          },

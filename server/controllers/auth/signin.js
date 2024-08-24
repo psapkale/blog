@@ -1,9 +1,14 @@
 const prisma = require("../../db/prisma");
+const jwt = require("jsonwebtoken");
 
 const signin = async (req, res) => {
    const { name, email, password } = req.body;
 
    try {
+      if (!name || !email || !password) {
+         throw new Error("Name or email or password not provided");
+      }
+
       const existingUser = await prisma.user.findUnique({
          where: {
             email,
@@ -34,6 +39,7 @@ const signin = async (req, res) => {
 
       res.status(200).json({
          token,
+         email: user.email,
       });
    } catch (err) {
       res.status(500).json({ error: err.message });

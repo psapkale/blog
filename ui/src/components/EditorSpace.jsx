@@ -3,7 +3,6 @@ import "@blocknote/mantine/style.css";
 import { useCreateBlockNote } from "@blocknote/react";
 import { useContext } from "react";
 import { ThemeContext } from "../providers/themeProvider";
-import "./EditorSpace.css";
 
 export const Editor = ({ content, onChange, editable }) => {
    const parsedContent = JSON.parse(JSON.parse(content));

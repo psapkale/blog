@@ -38,22 +38,6 @@ export const BlogModal = () => {
       ) {
          setEditable(true);
       }
-      // try {
-      //    const res = await axios.post(
-      //       `${import.meta.env.VITE_BLOG_SERVER_URL}/login`,
-      //       {
-      //          email: "kirat@gmail.com",
-      //          password: "aA123456",
-      //       }
-      //    );
-      //    const userData = {
-      //       token: res?.data?.token,
-      //       email: res?.data?.email,
-      //    };
-      //    sessionStorage.setItem("userDetails", JSON.stringify(userData));
-      // } catch (err) {
-      //    toast.error("Failed to retreive author");
-      // }
    }
 
    async function fetchBlog() {

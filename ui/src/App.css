@@ -41,3 +41,9 @@ body {
    --text-color-blend: #000;
    --scrolltrack-color: #000;
 }
+
+.bn-container[data-theming-css-variables-demo][data-color-scheme="dark"] {
+   --bn-colors-editor-text: #ffffff;
+   --bn-colors-editor-background: black;
+   --bn-colors-side-menu: #ffffff;
+}

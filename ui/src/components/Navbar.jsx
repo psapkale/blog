@@ -7,8 +7,9 @@ export const Navbar = () => {
    const { theme, setTheme } = useContext(ThemeContext);
    const [show, setShow] = useState(false);
    const [lastScrollY, setLastScrollY] = useState(0);
-   // ! nav not updating on signup
-   const isUserPresent = userDetails() ? true : false;
+   const [isLoggedIn, setIsLoggedIn] = useState(
+      !!sessionStorage.getItem("userDetails")
+   );
 
    function toggleTheme() {
       if (theme === "light") {
@@ -19,6 +20,20 @@ export const Navbar = () => {
          setTheme("light");
       }
    }
+
+   useEffect(() => {
+      const handleStorageChange = () => {
+         console.log("change");
+         setIsLoggedIn(!!sessionStorage.getItem("userDetails"));
+      };
+
+      // Add a listener for userDetailsChanged changes
+      window.addEventListener("userDetailsChanged", handleStorageChange);
+
+      return () => {
+         window.removeEventListener("userDetailsChanged", handleStorageChange);
+      };
+   }, []);
 
    useEffect(() => {
       const handleScroll = () => {
@@ -51,7 +66,7 @@ export const Navbar = () => {
          </a>
          <div className="text-[12px] font-[100] flex gap-10 items-center justify-between">
             <div className="cursor-pointer">Topic</div>
-            {isUserPresent ? (
+            {isLoggedIn ? (
                <a href="/create" className="cursor-pointer hover:underline">
                   Write Blog
                </a>

@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { triggerCustomEvent } from "../utils/userDetails";
 
 export const PopoverModal = ({ type, setIsOpen }) => {
    const [userName, setuserName] = useState();
@@ -25,6 +26,7 @@ export const PopoverModal = ({ type, setIsOpen }) => {
             email: res?.data?.email,
          };
          sessionStorage.setItem("userDetails", JSON.stringify(userData));
+         triggerCustomEvent();
          toast.success("Signin Successful");
          setIsOpen(false);
       } catch (err) {
@@ -47,6 +49,7 @@ export const PopoverModal = ({ type, setIsOpen }) => {
          };
          sessionStorage.removeItem("userDetails");
          sessionStorage.setItem("userDetails", JSON.stringify(userData));
+         triggerCustomEvent();
          toast.success("Signin Successful");
          setIsOpen(false);
       } catch (err) {

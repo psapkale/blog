@@ -6,6 +6,7 @@ import { ThemeContext } from "./providers/themeProvider";
 import { Hero } from "./pages/Hero";
 import { BlogModal } from "./pages/BlogModal";
 import { Toaster } from "react-hot-toast";
+import { CreateBlog } from "./components/CreateBlog";
 
 function App() {
    const [theme, setTheme] = useState("light");
@@ -27,6 +28,7 @@ function App() {
             <Navbar />
             <Routes>
                <Route path="/" element={<Hero />} />
+               <Route path="/create" element={<CreateBlog />} />
                <Route path="/:category/:title" element={<BlogModal />} />
             </Routes>
          </ThemeContext.Provider>

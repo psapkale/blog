@@ -1,13 +1,11 @@
-import { useEffect } from "react";
-
 export const userDetails = () => {
-   let user = null;
-
-   useEffect(() => {
-      user = sessionStorage.getItem("userDetails")
-         ? JSON.parse(sessionStorage.getItem("userDetails"))
-         : null;
-   }, [sessionStorage.getItem("userDetails")]);
+   let user = sessionStorage.getItem("userDetails")
+      ? JSON.parse(sessionStorage.getItem("userDetails"))
+      : null;
 
    return user;
+};
+
+export const triggerCustomEvent = () => {
+   window.dispatchEvent(new Event("userDetailsChanged"));
 };

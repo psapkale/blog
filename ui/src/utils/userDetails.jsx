@@ -5,7 +5,3 @@ export const userDetails = () => {
 
    return user;
 };
-
-export const triggerCustomEvent = () => {
-   window.dispatchEvent(new Event("userDetailsChanged"));
-};

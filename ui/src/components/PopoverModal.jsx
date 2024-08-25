@@ -1,15 +1,16 @@
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { triggerCustomEvent } from "../utils/userDetails";
+import { LoginContext } from "../providers/loginProvider";
 
 export const PopoverModal = ({ type, setIsOpen }) => {
    const [userName, setuserName] = useState();
    // ? validation for email and password
    const [email, setEmail] = useState();
    const [password, setPassword] = useState();
+   const { setIsLogin } = useContext(LoginContext);
 
    async function handleSignin() {
       try {
@@ -26,7 +27,7 @@ export const PopoverModal = ({ type, setIsOpen }) => {
             email: res?.data?.email,
          };
          sessionStorage.setItem("userDetails", JSON.stringify(userData));
-         triggerCustomEvent();
+         setIsLogin(true);
          toast.success("Signin Successful");
          setIsOpen(false);
       } catch (err) {
@@ -49,7 +50,7 @@ export const PopoverModal = ({ type, setIsOpen }) => {
          };
          sessionStorage.removeItem("userDetails");
          sessionStorage.setItem("userDetails", JSON.stringify(userData));
-         triggerCustomEvent();
+         setIsLogin(true);
          toast.success("Signin Successful");
          setIsOpen(false);
       } catch (err) {

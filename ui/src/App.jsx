@@ -7,9 +7,13 @@ import { Hero } from "./pages/Hero";
 import { BlogModal } from "./pages/BlogModal";
 import { Toaster } from "react-hot-toast";
 import { CreateBlog } from "./components/CreateBlog";
+import { LoginContext } from "./providers/loginProvider";
 
 function App() {
    const [theme, setTheme] = useState("light");
+   const [isLogin, setIsLogin] = useState(
+      !!sessionStorage.getItem("userDetails")
+   );
    if (theme === "dark") {
       document.body.classList.add("dark-theme");
    } else {
@@ -25,12 +29,19 @@ function App() {
                setTheme,
             }}
          >
-            <Navbar />
-            <Routes>
-               <Route path="/" element={<Hero />} />
-               <Route path="/create" element={<CreateBlog />} />
-               <Route path="/:category/:title" element={<BlogModal />} />
-            </Routes>
+            <LoginContext.Provider
+               value={{
+                  isLogin,
+                  setIsLogin,
+               }}
+            >
+               <Navbar />
+               <Routes>
+                  <Route path="/" element={<Hero />} />
+                  <Route path="/create" element={<CreateBlog />} />
+                  <Route path="/:category/:title" element={<BlogModal />} />
+               </Routes>
+            </LoginContext.Provider>
          </ThemeContext.Provider>
       </Router>
    );

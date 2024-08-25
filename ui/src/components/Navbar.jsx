@@ -1,15 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../providers/themeProvider";
-import { userDetails } from "../utils/userDetails";
 import { Popover } from "./Popover";
+import { LoginContext } from "../providers/loginProvider";
 
 export const Navbar = () => {
    const { theme, setTheme } = useContext(ThemeContext);
    const [show, setShow] = useState(false);
    const [lastScrollY, setLastScrollY] = useState(0);
-   const [isLoggedIn, setIsLoggedIn] = useState(
-      !!sessionStorage.getItem("userDetails")
-   );
+   const { isLogin, setIsLogin } = useContext(LoginContext);
 
    function toggleTheme() {
       if (theme === "light") {
@@ -21,19 +19,10 @@ export const Navbar = () => {
       }
    }
 
-   useEffect(() => {
-      const handleStorageChange = () => {
-         console.log("change");
-         setIsLoggedIn(!!sessionStorage.getItem("userDetails"));
-      };
-
-      // Add a listener for userDetailsChanged changes
-      window.addEventListener("userDetailsChanged", handleStorageChange);
-
-      return () => {
-         window.removeEventListener("userDetailsChanged", handleStorageChange);
-      };
-   }, []);
+   function handleLogout() {
+      sessionStorage.removeItem("userDetails");
+      setIsLogin(false);
+   }
 
    useEffect(() => {
       const handleScroll = () => {
@@ -66,10 +55,18 @@ export const Navbar = () => {
          </a>
          <div className="text-[12px] font-[100] flex gap-10 items-center justify-between">
             <div className="cursor-pointer">Topic</div>
-            {isLoggedIn ? (
-               <a href="/create" className="cursor-pointer hover:underline">
-                  Write Blog
-               </a>
+            {isLogin ? (
+               <>
+                  <a href="/create" className="cursor-pointer hover:underline">
+                     Write Blog
+                  </a>
+                  <button
+                     onClick={handleLogout}
+                     className="cursor-pointer hover:underline"
+                  >
+                     Logout
+                  </button>
+               </>
             ) : (
                <>
                   <Popover type="signin" />

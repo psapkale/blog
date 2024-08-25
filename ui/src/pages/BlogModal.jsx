@@ -6,6 +6,8 @@ import { monthString } from "../utils/monthString";
 import { Editor } from "../components/EditorSpace";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { userDetails } from "../utils/userDetails";
+import { LoginContext } from "../providers/loginProvider";
 
 export const BlogModal = () => {
    const [editable, setEditable] = useState(false);
@@ -30,15 +32,8 @@ export const BlogModal = () => {
       "#14c8eb",
       "#ff8c19",
    ];
-   const token = JSON.parse(sessionStorage.getItem("userDetails"))?.token;
-
-   async function isAuthor() {
-      if (
-         sessionStorage.getItem("userDetails")?.email === blog?.author?.email
-      ) {
-         setEditable(true);
-      }
-   }
+   const user = userDetails();
+   const { isLogin } = useContext(LoginContext);
 
    async function fetchBlog() {
       try {
@@ -49,7 +44,6 @@ export const BlogModal = () => {
       } catch (err) {
          toast.error(err.response.data.error);
       }
-      isAuthor();
    }
 
    async function onChange(content) {
@@ -63,7 +57,7 @@ export const BlogModal = () => {
             },
             {
                headers: {
-                  Authorization: `Bearer ${token}`,
+                  Authorization: `Bearer ${user?.token}`,
                   "Content-Type": "application/json",
                },
             }
@@ -127,7 +121,7 @@ export const BlogModal = () => {
                      <Editor
                         content={blog?.content}
                         onChange={onChange}
-                        editable={editable}
+                        editable={isLogin}
                      />
                   </div>
                </div>

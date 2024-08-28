@@ -92,7 +92,7 @@ export const BlogModal = () => {
             {blog && (
                <div className="absolute -top-12">
                   <h1
-                     className="p-2 text-[50px] font-[800]"
+                     className="w-[70vw] p-2 text-[50px] font-[800]"
                      style={{
                         backgroundColor:
                            theme === "light"

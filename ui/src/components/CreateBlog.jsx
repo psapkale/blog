@@ -5,6 +5,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { ThemeContext } from "../providers/themeProvider";
 import { Editor } from "./EditorSpace";
 import { shuffleNumbers } from "../utils/shuffleNumbers";
+import axios from "axios";
 
 export const CreateBlog = () => {
    const { theme } = useContext(ThemeContext);
@@ -24,15 +25,77 @@ export const CreateBlog = () => {
       "#ff8c19",
    ];
    const [blog, setBlog] = useState({
-      title: "Bye Bye Bye...: Evolution of repeated token attacks on ChatGPT models",
-      categories: ["MachineLearning"],
-      content: [{}],
+      title: "",
+      categories: [],
+      content: [
+         {
+            id: "173055b0-a560-46f5-a167-a14fe0704a13",
+            type: "paragraph",
+            props: {
+               textColor: "default",
+               backgroundColor: "default",
+               textAlignment: "left",
+            },
+            content: [],
+            children: [],
+         },
+      ],
    });
+   const [loading, setLoading] = useState(false);
 
-   // { categories, title, content }
+   function isContentEmpty(content) {
+      content.map((c) => {
+         if (c.content.length === 0) {
+            return true;
+         }
+      });
+      return false;
+   }
 
-   function onChange(content) {
+   function handleTitleChange(e) {
+      setBlog((blog) => ({ ...blog, title: e.target.value }));
+   }
+
+   function handleCategoryChange(e) {
+      setBlog((blog) => ({ ...blog, categories: [e.target.value] }));
+   }
+
+   function handleContentChange(content) {
       setBlog((prevBlog) => ({ ...prevBlog, content }));
+   }
+
+   async function handleCreateBlog() {
+      try {
+         if (blog.title.length === 0) {
+            return toast.error("Please fill the title");
+         }
+         toast("Are you sure with the category of the blog?");
+         if (blog.content[0].content.length === 0) {
+            return toast.error(
+               "You can share your thought..\nTry writing from the start"
+            );
+         }
+         setLoading(true);
+         const res = await axios.post(
+            `${import.meta.env.VITE_BLOG_SERVER_URL}/create-blog`,
+            {
+               categories: blog.categories,
+               title: blog.title,
+               content: blog.content,
+            },
+            {
+               headers: {
+                  Authorization: `Bearer ${user?.token}`,
+                  "Content-Type": "application/json",
+               },
+            }
+         );
+         toast.success("Blog created successfully");
+         setLoading(false);
+         return navigate(`/${blog.categories}/${blog.title}`);
+      } catch (err) {
+         toast.error(err.response.data.error);
+      }
    }
 
    useEffect(() => {
@@ -57,27 +120,42 @@ export const CreateBlog = () => {
          </>
          <div className="relative w-[70vw] mx-auto">
             <div className="absolute -top-12">
-               <h1
-                  className="p-2 text-[50px] font-[800]"
+               <textarea
+                  required
+                  placeholder={
+                     "Bye Bye Bye...: Evolution of repeated token attacks on ChatGPT models"
+                  }
+                  onChange={handleTitleChange}
+                  className="w-[70vw] p-2 text-[50px] font-[800]"
                   style={{
                      backgroundColor:
                         theme === "light" ? "black" : colors[index] || "white",
                      color: theme === "light" ? "white" : "black",
                   }}
-               >
-                  {blog?.title}
-               </h1>
+               />
                <div
                   style={{
                      color: theme === "light" ? "black" : "white",
                   }}
                   className="mt-2 px-1 flex gap-2 text-[14px] font-extralight"
                >
-                  {/* <b className="text-[15px] font-[600]">/ /</b>
-                  <h1 className="">{blog?.author?.name}</h1>
-                  <>•</>
-                  <h1>{createdAt}</h1> */}
-                  <h1>Category</h1>
+                  <select
+                     required
+                     // multiple
+                     value={blog.categories}
+                     onChange={handleCategoryChange}
+                     className="border-2 border-black rounded-sm px-2 py-1"
+                  >
+                     <option selected value="Application">
+                        Application
+                     </option>
+                     <option value="FrontEnd"> FrontEnd</option>
+                     <option value="Infrastructure"> Infrastructure</option>
+                     <option value="MachineLearning"> Machine Learning</option>
+                     <option value="Mobile"> Mobile</option>
+                     <option value="Security"> Security</option>
+                     <option value="Culture"> Culture</option>
+                  </select>
                </div>
                <div
                   style={{
@@ -87,9 +165,19 @@ export const CreateBlog = () => {
                >
                   <Editor
                      content={blog?.content}
-                     onChange={onChange}
+                     onChange={handleContentChange}
                      editable={true}
                   />
+               </div>
+               <div className="w-full flex items-center justify-end">
+                  <button
+                     onClick={handleCreateBlog}
+                     className={`bg-black text-white px-4 py-2 rounded-lg ${
+                        loading && "cursor-wait"
+                     }`}
+                  >
+                     Create
+                  </button>
                </div>
             </div>
          </div>

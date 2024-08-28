@@ -8,11 +8,13 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { userDetails } from "../utils/userDetails";
 import { LoginContext } from "../providers/loginProvider";
+import { BlogModalShimmer } from "../loaders/BlogModalShimmer";
 
 export const BlogModal = () => {
    const [editable, setEditable] = useState(false);
    const { theme } = useContext(ThemeContext);
    const [blog, setBlog] = useState();
+   const [loading, setLoading] = useState(false);
    const { category, title } = useParams();
    const shuffledIndex = useMemo(() => shuffleNumbers(), []);
    const index = useMemo(
@@ -37,10 +39,12 @@ export const BlogModal = () => {
 
    async function fetchBlog() {
       try {
+         setLoading(true);
          const res = await axios(
             `${import.meta.env.VITE_BLOG_SERVER_URL}/blog/${title}`
          );
          setBlog(res?.data?.blog);
+         setLoading(false);
       } catch (err) {
          toast.error(err.response.data.error);
       }
@@ -69,8 +73,8 @@ export const BlogModal = () => {
       fetchBlog();
    }, []);
 
-   return !blog ? (
-      <div className="text-center mt-2 text-[16px]">loading..</div>
+   return loading ? (
+      <BlogModalShimmer />
    ) : (
       <div>
          <>

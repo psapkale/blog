@@ -10,10 +10,12 @@ export const PopoverModal = ({ type, setIsOpen }) => {
    // ? validation for email and password
    const [email, setEmail] = useState();
    const [password, setPassword] = useState();
+   const [loading, setLoading] = useState(false);
    const { setIsLogin } = useContext(LoginContext);
 
    async function handleSignin() {
       try {
+         setLoading(true);
          const res = await axios.post(
             `${import.meta.env.VITE_BLOG_SERVER_URL}/signin`,
             {
@@ -29,6 +31,7 @@ export const PopoverModal = ({ type, setIsOpen }) => {
          sessionStorage.setItem("userDetails", JSON.stringify(userData));
          setIsLogin(true);
          toast.success("Signin Successful");
+         setLoading(false);
          setIsOpen(false);
       } catch (err) {
          toast.error(err.response.data.error);
@@ -37,6 +40,7 @@ export const PopoverModal = ({ type, setIsOpen }) => {
 
    async function handleLogin() {
       try {
+         setLoading(true);
          const res = await axios.post(
             `${import.meta.env.VITE_BLOG_SERVER_URL}/login`,
             {
@@ -52,6 +56,7 @@ export const PopoverModal = ({ type, setIsOpen }) => {
          sessionStorage.setItem("userDetails", JSON.stringify(userData));
          setIsLogin(true);
          toast.success("Signin Successful");
+         setLoading(false);
          setIsOpen(false);
       } catch (err) {
          toast.error(err.response.data.error);
@@ -107,7 +112,10 @@ export const PopoverModal = ({ type, setIsOpen }) => {
                />
                <button
                   onClick={type === "signin" ? handleSignin : handleLogin}
-                  className="bg-black text-white w-1/2 p-2 rounded-lg"
+                  disabled={loading}
+                  className={`bg-black text-white w-1/2 p-2 rounded-lg ${
+                     loading && "cursor-wait"
+                  }`}
                >
                   {type === "signin" ? "Signin" : "Login"}
                </button>

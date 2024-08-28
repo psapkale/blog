@@ -3,18 +3,22 @@ import { ThemeContext } from "../providers/themeProvider";
 import { FeaturedBlogModal } from "./FeaturedBlogModal";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { FeaturedBlogsShimmer } from "../loaders/FeaturedBlogsShimmer";
 
 export const FeaturedBlogs = () => {
    const { theme } = useContext(ThemeContext);
    const [blogs, setBlogs] = useState([]);
+   const [loading, setLoading] = useState(false);
 
    async function fetchData() {
       try {
+         setLoading(true);
          const res = await axios.get(
             `${import.meta.env.VITE_BLOG_SERVER_URL}/featured`
          );
 
          setBlogs(res?.data?.featuredBlogs);
+         setLoading(false);
       } catch (err) {
          toast.error(err.response.data.error);
       }
@@ -35,8 +39,8 @@ export const FeaturedBlogs = () => {
             Featured
          </h1>
          <div className="mt-10 flex gap-10 items-start justify-evenly">
-            {!blogs[0] ? (
-               <div className="text-[10px]">loading..</div>
+            {loading ? (
+               <FeaturedBlogsShimmer />
             ) : (
                blogs?.map((blog, i) => (
                   <FeaturedBlogModal key={blog.id} blog={blog} i={i} />

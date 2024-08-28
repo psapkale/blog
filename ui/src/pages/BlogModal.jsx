@@ -46,9 +46,7 @@ export const BlogModal = () => {
       }
    }
 
-   async function onChange(content) {
-      const newContent = JSON.stringify(content);
-
+   async function onChange(newContent) {
       try {
          const res = await axios.put(
             `${import.meta.env.VITE_BLOG_SERVER_URL}/update/${title}`,

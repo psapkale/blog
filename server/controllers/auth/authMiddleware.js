@@ -14,7 +14,7 @@ const authMiddleware = async (req, res, next) => {
       req.userEmail = decoded.email;
       next();
    } catch (err) {
-      res.status(401).json({ error: "Token is not valid" });
+      res.status(401).json({ error: "Unauthorized" });
    }
 };
 module.exports = {

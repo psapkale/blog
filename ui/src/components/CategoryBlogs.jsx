@@ -69,7 +69,14 @@ export const CategoryBlogs = ({ type = "Latest", color = "white", offset }) => {
                   <CategoryBlogModal key={blog.id} type={type} blog={blog} />
                ))
             ) : (
-               <div className="text-[10px]">more blogs coming soon..</div>
+               <div
+                  className="text-[10px]"
+                  style={{
+                     color: theme === "dark" && "white",
+                  }}
+               >
+                  more blogs coming soon..
+               </div>
             )}
          </div>
          <div className="border-b border-black w-full"></div>

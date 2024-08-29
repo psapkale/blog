@@ -45,13 +45,15 @@ export const CategoryBlogs = ({ type = "Latest", color = "white", offset }) => {
          >
             <h1
                style={{
-                  backgroundColor: color,
+                  backgroundColor: type !== "Latest" && color,
                }}
-               className={
-                  type == "Latest"
-                     ? ""
-                     : "py-2 px-3 hover:underline cursor-pointer"
-               }
+               className={`
+                  ${
+                     type == "Latest"
+                        ? theme === "dark" && "text-white"
+                        : "py-2 px-3 hover:underline cursor-pointer"
+                  }
+               `}
             >
                {type}
             </h1>

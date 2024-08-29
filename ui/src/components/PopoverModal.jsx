@@ -12,8 +12,13 @@ export const PopoverModal = ({ type, setIsOpen }) => {
    const [password, setPassword] = useState();
    const [loading, setLoading] = useState(false);
    const { setIsLogin } = useContext(LoginContext);
+   const emailReg = /^[^@]+@[^@]+.[^@]+$/;
 
    async function handleSignin() {
+      if (!emailReg.test(email)) {
+         toast.error("Invalid email");
+         return;
+      }
       try {
          setLoading(true);
          const res = await axios.post(
@@ -39,6 +44,10 @@ export const PopoverModal = ({ type, setIsOpen }) => {
    }
 
    async function handleLogin() {
+      if (!emailReg.test(email)) {
+         toast.error("Invalid email");
+         return;
+      }
       try {
          setLoading(true);
          const res = await axios.post(
@@ -97,7 +106,9 @@ export const PopoverModal = ({ type, setIsOpen }) => {
                   id="email"
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                     setEmail(e.target.value);
+                  }}
                   className="mb-2 border border-black rounded-lg w-1/2 p-2"
                />
                <label htmlFor="password" className="w-1/2">

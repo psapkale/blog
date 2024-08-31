@@ -4,7 +4,7 @@ import { monthString } from "../utils/monthString";
 import { Link } from "react-router-dom";
 import { shuffleNumbers } from "../utils/shuffleNumbers";
 
-export const FeaturedBlogModal = ({ blog, i }) => {
+export const FeaturedBlogModal = ({ category = "All", blog, i }) => {
    const { theme } = useContext(ThemeContext);
    const shuffledIndex = useMemo(() => shuffleNumbers(), []);
    const index = shuffledIndex[i];
@@ -55,10 +55,14 @@ export const FeaturedBlogModal = ({ blog, i }) => {
             >
                <b className="text-[12px]">/ /</b>
                <h1 className="">{createdAt}</h1>
-               <>•</>
-               <h1 className="underline hover:no-underline duration-100 cursor-pointer">
-                  {blog.categories[0].category.name}
-               </h1>
+               {category === "All" && (
+                  <>
+                     <>•</>
+                     <h1 className="underline hover:no-underline duration-100 cursor-pointer">
+                        {blog.categories[0].category.name}
+                     </h1>
+                  </>
+               )}
             </div>
          </div>
       </Link>

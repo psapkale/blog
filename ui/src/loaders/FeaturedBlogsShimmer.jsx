@@ -6,8 +6,11 @@ export const FeaturedBlogsShimmer = () => {
 
    return Array(3)
       .fill("")
-      .map(() => (
-         <div className="text-[10px] w-[33%] h-fit flex flex-col items-start">
+      .map((_, i) => (
+         <div
+            className="text-[10px] w-[33%] h-fit flex flex-col items-start"
+            key={i}
+         >
             <div
                className={`w-[96%] h-[196px] ${
                   theme === "light"

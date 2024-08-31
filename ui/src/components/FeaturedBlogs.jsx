@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { FeaturedBlogsShimmer } from "../loaders/FeaturedBlogsShimmer";
 
-export const FeaturedBlogs = () => {
+export const FeaturedBlogs = ({ category = "All" }) => {
    const { theme } = useContext(ThemeContext);
    const [blogs, setBlogs] = useState([]);
    const [loading, setLoading] = useState(false);
@@ -14,10 +14,14 @@ export const FeaturedBlogs = () => {
       try {
          setLoading(true);
          const res = await axios.get(
-            `${import.meta.env.VITE_BLOG_SERVER_URL}/featured`
+            category === "All"
+               ? `${import.meta.env.VITE_BLOG_SERVER_URL}/featured`
+               : `${import.meta.env.VITE_BLOG_SERVER_URL}/all/${category}`
          );
 
-         setBlogs(res?.data?.featuredBlogs);
+         setBlogs(
+            category === "All" ? res?.data?.featuredBlogs : res?.data?.blogs
+         );
          setLoading(false);
       } catch (err) {
          toast.error(err.response.data.error);
@@ -43,7 +47,12 @@ export const FeaturedBlogs = () => {
                <FeaturedBlogsShimmer />
             ) : (
                blogs?.map((blog, i) => (
-                  <FeaturedBlogModal key={blog.id} blog={blog} i={i} />
+                  <FeaturedBlogModal
+                     key={blog.id}
+                     category={category}
+                     blog={blog}
+                     i={i}
+                  />
                ))
             )}
          </div>

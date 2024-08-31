@@ -19,6 +19,13 @@ const getBlogsByCategory = async (req, res) => {
                },
             },
          },
+         include: {
+            categories: {
+               include: {
+                  category: true,
+               },
+            },
+         },
       });
 
       if (!blogs) {

@@ -4,8 +4,14 @@ import { CategoryBlogModal } from "./CategoryBlogModal";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { CategoryBlogShimmer } from "../loaders/CategoryBlogShimmer";
+import { Link } from "react-router-dom";
 
-export const CategoryBlogs = ({ type = "Latest", color = "white", offset }) => {
+export const CategoryBlogs = ({
+   type = "Latest",
+   color = "white",
+   offset,
+   allPostsByCategory,
+}) => {
    const { theme } = useContext(ThemeContext);
    const [blogs, setBlogs] = useState([]);
    const [loading, setLoading] = useState(false);
@@ -18,13 +24,19 @@ export const CategoryBlogs = ({ type = "Latest", color = "white", offset }) => {
             res = await axios.get(
                `${import.meta.env.VITE_BLOG_SERVER_URL}/latest/${offset}`
             );
+         } else if (type !== "Latest" && allPostsByCategory) {
+            res = await axios.get(
+               `${import.meta.env.VITE_BLOG_SERVER_URL}/all/${type}`
+            );
          } else {
             const strictType = type.replace(" ", "");
             res = await axios.get(
                `${import.meta.env.VITE_BLOG_SERVER_URL}/${strictType}/${offset}`
             );
          }
-         setBlogs(res?.data?.latestBlogs);
+         setBlogs(
+            allPostsByCategory ? res?.data?.blogs : res?.data?.latestBlogs
+         );
          setLoading(false);
       } catch (err) {
          toast.error(err.response.data.error);
@@ -43,23 +55,35 @@ export const CategoryBlogs = ({ type = "Latest", color = "white", offset }) => {
             }}
             className="text-[14px] font-[800] flex items-center justify-between"
          >
-            <h1
-               style={{
-                  backgroundColor: type !== "Latest" && color,
-               }}
-               className={`
+            {type !== "Latest" && !allPostsByCategory ? (
+               <Link
+                  to={`/${type}`}
+                  style={{
+                     backgroundColor: type !== "Latest" && color,
+                  }}
+                  className={`
                   ${
-                     type == "Latest"
+                     type === "Latest"
                         ? theme === "dark" && "text-white"
                         : "py-2 px-3 hover:underline cursor-pointer"
                   }
-               `}
-            >
-               {type}
-            </h1>
-            <h1 className="text-[12px] underline hover:no-underline duration-100 cursor-pointer">
-               {type === "Latest" ? "See more" : "See all"}
-            </h1>
+                     `}
+               >
+                  {type}
+               </Link>
+            ) : (
+               <h1 className={`${theme === "dark" && "text-white"}`}>
+                  {allPostsByCategory ? "All Posts" : "Latest"}
+               </h1>
+            )}
+            {!allPostsByCategory && (
+               <Link
+                  to={type === "Latest" ? `/all-stories` : `/${type}`}
+                  className="text-[12px] underline hover:no-underline duration-100 cursor-pointer"
+               >
+                  {type === "Latest" ? "See more" : "See all"}
+               </Link>
+            )}
          </div>
          <div className="my-10 flex flex-col gap-6 items-start justify-evenly">
             {loading ? (

@@ -4,10 +4,6 @@ const getLatestBlogs = async (req, res) => {
    const { offset } = req.params;
 
    try {
-      if (!offset) {
-         throw new Error("Offset not provided");
-      }
-
       const blogs = await prisma.blog.findMany({
          orderBy: {
             createdAt: "desc",
@@ -25,8 +21,11 @@ const getLatestBlogs = async (req, res) => {
          throw new Error("Blogs not found");
       }
 
-      const latestBlogs =
-         blogs.length < offset ? blogs : blogs.slice(0, offset);
+      const latestBlogs = offset
+         ? blogs.length < offset
+            ? blogs
+            : blogs.slice(0, offset)
+         : blogs;
 
       res.status(200).json({ latestBlogs });
    } catch (err) {

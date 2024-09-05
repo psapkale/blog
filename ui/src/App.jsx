@@ -9,6 +9,7 @@ import { Toaster } from "react-hot-toast";
 import { CreateBlog } from "./components/CreateBlog";
 import { LoginContext } from "./providers/loginProvider";
 import { CategoryModal } from "./pages/CategoryModal";
+import { AllBlogs } from "./pages/AllBlogs";
 
 function App() {
    const [theme, setTheme] = useState("light");
@@ -40,6 +41,7 @@ function App() {
                <Routes>
                   <Route path="/" element={<Hero />} />
                   <Route path="/create" element={<CreateBlog />} />
+                  <Route path="/all-stories" element={<AllBlogs />} />
                   <Route path="/:category" element={<CategoryModal />} />
                   <Route path="/:category/:title" element={<BlogModal />} />
                </Routes>

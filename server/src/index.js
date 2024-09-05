@@ -30,6 +30,7 @@ apiRouter.post("/create-blog", authMiddleware, createBlog);
 apiRouter.get("/blog/:title", getBlogByTitle);
 apiRouter.get("/all/:categoryName", getBlogsByCategory);
 apiRouter.get("/featured", getFeaturedBlogs);
+apiRouter.get("/latest", getLatestBlogs);
 apiRouter.get("/latest/:offset", getLatestBlogs);
 apiRouter.get("/:category/:offset", getLatestBlogsByCategory);
 apiRouter.put("/update/:title", authMiddleware, updateBlog);

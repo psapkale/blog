@@ -1,9 +1,19 @@
 import { CategoryBlogs } from "../components/CategoryBlogs";
 import { FeaturedBlogs } from "../components/FeaturedBlogs";
+import { HeroHeader } from "../components/HeroHeader";
+
+function HeroContent() {
+   return (
+      <div className="w-[66%] text-[#fff] h-fit mx-auto text-[3.6rem]">
+         Blog.Dev(FrontEnd)
+      </div>
+   );
+}
 
 export const Hero = () => {
    return (
       <>
+         <HeroHeader content={<HeroContent />} />
          <FeaturedBlogs />
          <CategoryBlogs offset={6} />
          <CategoryBlogs type={"Application"} color="#b4dc19" offset={3} />

@@ -4,7 +4,7 @@ import { CategoryBlogModal } from "./CategoryBlogModal";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { CategoryBlogShimmer } from "../loaders/CategoryBlogShimmer";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export const CategoryBlogs = ({
    type = "Latest",
@@ -12,6 +12,8 @@ export const CategoryBlogs = ({
    offset,
    allPostsByCategory,
 }) => {
+   const data = useParams();
+   console.log(data);
    const { theme } = useContext(ThemeContext);
    const [blogs, setBlogs] = useState([]);
    const [loading, setLoading] = useState(false);
@@ -79,7 +81,7 @@ export const CategoryBlogs = ({
             {!allPostsByCategory && (
                <Link
                   to={type === "Latest" ? `/all-stories` : `/${type}`}
-                  className="text-[12px] underline hover:no-underline duration-100 cursor-pointer"
+                  className="text-[14px] underline hover:no-underline duration-100 cursor-pointer"
                >
                   {type === "Latest" ? "See more" : "See all"}
                </Link>
@@ -103,7 +105,9 @@ export const CategoryBlogs = ({
                </div>
             )}
          </div>
-         <div className="border-b border-black w-full"></div>
+         {!allPostsByCategory && (
+            <div className="border-b border-black w-full"></div>
+         )}
       </div>
    );
 };

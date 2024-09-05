@@ -17,7 +17,7 @@ export const CategoryBlogModal = ({ blog, type }) => {
             style={{
                color: theme === "light" ? "black" : "white",
             }}
-            className="text-[18px] font-[600] hover:underline duration-100 cursor-pointer"
+            className="text-[22px] font-[600] hover:underline duration-100 cursor-pointer"
          >
             {blog.title}
          </h1>
@@ -25,7 +25,7 @@ export const CategoryBlogModal = ({ blog, type }) => {
             style={{
                color: theme === "light" ? "black" : "white",
             }}
-            className="mt-1 text-[11px] flex gap-2 items-center justify-start text-nowrap flex-wrap"
+            className="mt-1 text-[14px] flex gap-2 items-center justify-start text-nowrap flex-wrap"
          >
             <b className="text-[12px]">/ /</b>
             <h1 className="">{createdAt}</h1>

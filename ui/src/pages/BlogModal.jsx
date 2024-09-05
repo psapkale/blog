@@ -71,6 +71,7 @@ export const BlogModal = () => {
 
    useEffect(() => {
       fetchBlog();
+      window.scrollTo({ top: 0 });
    }, []);
 
    return loading ? (

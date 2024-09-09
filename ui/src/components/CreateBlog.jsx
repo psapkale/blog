@@ -56,8 +56,12 @@ export const CreateBlog = () => {
       setBlog((blog) => ({ ...blog, title: e.target.value }));
    }
 
+   // ! make funcitonality to remove categories
    function handleCategoryChange(e) {
-      setBlog((blog) => ({ ...blog, categories: [e.target.value] }));
+      setBlog((blog) => ({
+         ...blog,
+         categories: [...new Set([...blog.categories, e.target.value])],
+      }));
    }
 
    function handleContentChange(content) {
@@ -69,7 +73,9 @@ export const CreateBlog = () => {
          if (blog.title.length === 0) {
             return toast.error("Please fill the title");
          }
-         toast("Are you sure with the category of the blog?");
+         if (blog.categories.length === 0) {
+            return toast("Are you sure with the category of the blog?");
+         }
          if (blog.content[0].content.length === 0) {
             return toast.error(
                "You can share your thought..\nTry writing from the start"
@@ -92,7 +98,7 @@ export const CreateBlog = () => {
          );
          toast.success("Blog created successfully");
          setLoading(false);
-         return navigate(`/${blog.categories}/${blog.title}`);
+         return navigate(`/${blog.categories[0]}/${blog.title}`);
       } catch (err) {
          toast.error(err.response.data.error);
       }
@@ -142,13 +148,14 @@ export const CreateBlog = () => {
                   <select
                      required
                      // multiple
-                     value={blog.categories}
+                     value={blog.categories[blog.categories.length - 1]}
                      onChange={handleCategoryChange}
                      className="border-2 border-black rounded-sm px-2 py-1"
                   >
-                     <option selected value="Application">
-                        Application
+                     <option disabled selected value="">
+                        Category
                      </option>
+                     <option value="Application">Application</option>
                      <option value="FrontEnd"> FrontEnd</option>
                      <option value="Infrastructure"> Infrastructure</option>
                      <option value="MachineLearning"> Machine Learning</option>

@@ -134,23 +134,20 @@ export const CreateBlog = () => {
                   onChange={handleTitleChange}
                   className="w-[70vw] p-2 text-[50px] font-[800]"
                   style={{
-                     backgroundColor:
-                        theme === "light" ? "black" : colors[index] || "white",
+                     backgroundColor: theme === "light" ? "black" : "white",
                      color: theme === "light" ? "white" : "black",
                   }}
                />
-               <div
-                  style={{
-                     color: theme === "light" ? "black" : "white",
-                  }}
-                  className="mt-2 px-1 flex gap-2 text-[14px] font-extralight"
-               >
+               <div className="mt-2 px-1 flex gap-2 text-[14px] font-extralight">
                   <select
+                     style={{
+                        borderColor: theme === "light" ? "black" : "white",
+                     }}
                      required
                      // multiple
                      value={blog.categories[blog.categories.length - 1]}
                      onChange={handleCategoryChange}
-                     className="border-2 border-black rounded-sm px-2 py-1"
+                     className="border-2 rounded-sm px-2 py-1"
                   >
                      <option disabled selected value="">
                         Category
@@ -178,8 +175,12 @@ export const CreateBlog = () => {
                </div>
                <div className="w-full flex items-center justify-end">
                   <button
+                     style={{
+                        backgroundColor: theme === "light" ? "black" : "white",
+                        color: theme === "light" ? "white" : "black",
+                     }}
                      onClick={handleCreateBlog}
-                     className={`bg-black text-white px-4 py-2 rounded-lg ${
+                     className={`px-4 py-2 rounded-lg ${
                         loading && "cursor-wait"
                      }`}
                   >

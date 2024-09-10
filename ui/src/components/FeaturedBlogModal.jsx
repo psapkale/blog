@@ -58,9 +58,12 @@ export const FeaturedBlogModal = ({ category = "All", blog, i }) => {
                {category === "All" && (
                   <>
                      <>•</>
-                     <h1 className="underline hover:no-underline duration-100 cursor-pointer">
+                     <Link
+                        to={`/${blog.categories[0].category.name}`}
+                        className="underline hover:no-underline duration-100 cursor-pointer"
+                     >
                         {blog.categories[0].category.name}
-                     </h1>
+                     </Link>
                   </>
                )}
             </div>

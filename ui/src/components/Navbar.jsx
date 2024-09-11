@@ -2,10 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../providers/themeProvider";
 import { Popover } from "./Popover";
 import { LoginContext } from "../providers/loginProvider";
+import { X } from "lucide-react";
+import { SearchHeroModal } from "./SearchHeroModal";
 
 export const Navbar = () => {
    const { theme, setTheme } = useContext(ThemeContext);
    const [show, setShow] = useState(false);
+   const [searchModalOpen, setSearchModalOpen] = useState(false);
    const [lastScrollY, setLastScrollY] = useState(0);
    const { isLogin, setIsLogin } = useContext(LoginContext);
 
@@ -28,11 +31,13 @@ export const Navbar = () => {
       const handleScroll = () => {
          const currentScrollY = window.scrollY;
 
-         if (currentScrollY < lastScrollY) {
-            setShow(false);
-         } else {
-            setShow(true);
-         }
+         searchModalOpen
+            ? currentScrollY !== lastScrollY
+               ? setSearchModalOpen(false)
+               : setSearchModalOpen(true)
+            : currentScrollY < lastScrollY
+            ? setShow(false)
+            : setShow(true);
 
          setLastScrollY(currentScrollY);
       };
@@ -127,9 +132,15 @@ export const Navbar = () => {
                   width="26"
                />
             </button>
-            <div className="cursor-pointer">
+            <button
+               onClick={() => setSearchModalOpen(true)}
+               className="cursor-pointer"
+            >
                <img alt="" height="16" src="/search.svg" width="16" />
-            </div>
+            </button>
+            {searchModalOpen && (
+               <SearchHeroModal setSearchModalOpen={setSearchModalOpen} />
+            )}
          </div>
       </div>
    );

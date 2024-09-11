@@ -14,6 +14,7 @@ const {
    getLatestBlogsByCategory,
 } = require("../controllers/blogs/getLatestBlogsByCategory");
 const { updateBlog } = require("../controllers/blogs/updateBlog");
+const { getSearchBlog } = require("../controllers/blogs/getSearchBlog");
 const app = express();
 const apiRouter = express.Router();
 
@@ -27,6 +28,7 @@ app.get("/", (req, res) => res.send("Blog Server"));
 apiRouter.post("/signin", signin);
 apiRouter.post("/login", login);
 apiRouter.post("/create-blog", authMiddleware, createBlog);
+apiRouter.get("/search", getSearchBlog);
 apiRouter.get("/blog/:title", getBlogByTitle);
 apiRouter.get("/all/:categoryName", getBlogsByCategory);
 apiRouter.get("/featured", getFeaturedBlogs);

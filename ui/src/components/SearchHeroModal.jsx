@@ -1,11 +1,21 @@
 import { X } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const SearchHeroModal = ({ setSearchModalOpen }) => {
    const [q, setQ] = useState("");
+   const navigate = useNavigate();
 
    function handleInputChange(e) {
       setQ(e.target.value);
+   }
+
+   function handleSubmit(e) {
+      e.preventDefault();
+      if (q !== "") {
+         navigate(`/search-results?q=${q}`);
+         setSearchModalOpen(false);
+      }
    }
 
    return (
@@ -22,13 +32,15 @@ export const SearchHeroModal = ({ setSearchModalOpen }) => {
             </button>
          </div>
          <div className="w-full h-[80%] bg-black flex items-center justify-center">
-            <input
-               type="text"
-               value={q}
-               onChange={handleInputChange}
-               placeholder="Search"
-               className="w-[66%] h-[20%] text-[50px] bg-black py-6 px-1 border-b-2 placeholder:text-[#757575] focus:outline-none"
-            />
+            <form onSubmit={handleSubmit}>
+               <input
+                  type="text"
+                  value={q}
+                  onChange={handleInputChange}
+                  placeholder="Search"
+                  className="w-[66vw] h-[20%] text-[50px] bg-black py-6 px-1 border-b-2 placeholder:text-[#757575] focus:outline-none"
+               />
+            </form>
          </div>
       </div>
    );

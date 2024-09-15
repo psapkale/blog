@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../providers/themeProvider";
 import { Popover } from "./Popover";
 import { LoginContext } from "../providers/loginProvider";
-import { X } from "lucide-react";
 import { SearchHeroModal } from "./SearchHeroModal";
 
 export const Navbar = () => {

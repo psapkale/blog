@@ -10,6 +10,13 @@ const getSearchBlog = async (req, res) => {
                mode: "insensitive",
             },
          },
+         include: {
+            categories: {
+               include: {
+                  category: true,
+               },
+            },
+         },
       });
 
       if (!blogs) {

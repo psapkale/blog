@@ -4,7 +4,7 @@ import { CategoryBlogModal } from "./CategoryBlogModal";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { CategoryBlogShimmer } from "../loaders/CategoryBlogShimmer";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const CategoryBlogs = ({
    type = "Latest",
@@ -12,8 +12,6 @@ export const CategoryBlogs = ({
    offset,
    allPostsByCategory,
 }) => {
-   const data = useParams();
-   console.log(data);
    const { theme } = useContext(ThemeContext);
    const [blogs, setBlogs] = useState([]);
    const [loading, setLoading] = useState(false);

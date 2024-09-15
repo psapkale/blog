@@ -10,6 +10,7 @@ import { CreateBlog } from "./components/CreateBlog";
 import { LoginContext } from "./providers/loginProvider";
 import { CategoryModal } from "./pages/CategoryModal";
 import { AllBlogs } from "./pages/AllBlogs";
+import { SearchBlogs } from "./components/SearchBlogs";
 
 function App() {
    const [theme, setTheme] = useState("light");
@@ -41,6 +42,7 @@ function App() {
                <Routes>
                   <Route path="/" element={<Hero />} />
                   <Route path="/create" element={<CreateBlog />} />
+                  <Route path="/search-results" element={<SearchBlogs />} />
                   <Route path="/all-stories" element={<AllBlogs />} />
                   <Route path="/:category" element={<CategoryModal />} />
                   <Route path="/:category/:title" element={<BlogModal />} />

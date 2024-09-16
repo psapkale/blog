@@ -65,7 +65,7 @@ export const BlogModal = () => {
             }
          );
       } catch (err) {
-         toast.error(err.response.data.error);
+         console.log(err.response.data.error);
       }
    }
 
@@ -119,7 +119,7 @@ export const BlogModal = () => {
                      style={{
                         color: theme === "light" ? "black" : "white",
                      }}
-                     className="mt-20 w-[70%] mx-auto"
+                     className="mt-20 w-[80%] mx-auto"
                   >
                      <Editor
                         content={blog?.content}

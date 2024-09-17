@@ -1,11 +1,13 @@
 import { CategoryBlogs } from "../components/CategoryBlogs";
 import { FeaturedBlogs } from "../components/FeaturedBlogs";
 import { HeroHeader } from "../components/HeroHeader";
+import { TypingWords } from "../components/TypingWords";
 
 function HeroContent() {
    return (
       <div className="w-[66%] text-[#fff] h-fit mx-auto text-[3.6rem]">
-         Blog.Dev(FrontEnd)
+         Blog.Dev(
+         <TypingWords />)
       </div>
    );
 }

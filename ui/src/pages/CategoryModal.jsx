@@ -7,13 +7,16 @@ import { shuffleNumbers } from "../utils/shuffleNumbers";
 
 const HeroContent = ({ text, color = "#fff" }) => {
    return (
-      <div
-         style={{
-            color: color,
-         }}
-         className="w-[66%] h-fit mx-auto text-[3.6rem]"
-      >
-         ({text})
+      <div className="w-[66%] h-fit mx-auto font-bold text-[3.6rem] text-white">
+         (
+         <span
+            style={{
+               color: color,
+            }}
+         >
+            {text}
+         </span>
+         )
       </div>
    );
 };

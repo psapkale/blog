@@ -6,6 +6,7 @@ import { ThemeContext } from "../providers/themeProvider";
 import { Editor } from "./EditorSpace";
 import { shuffleNumbers } from "../utils/shuffleNumbers";
 import axios from "axios";
+import { Delete, Trash, Trash2, Trash2Icon } from "lucide-react";
 
 export const CreateBlog = () => {
    const { theme } = useContext(ThemeContext);
@@ -56,12 +57,18 @@ export const CreateBlog = () => {
       setBlog((blog) => ({ ...blog, title: e.target.value }));
    }
 
-   // ! make funcitonality to remove categories
    function handleCategoryChange(e) {
       setBlog((blog) => ({
          ...blog,
          categories: [...new Set([...blog.categories, e.target.value])],
       }));
+   }
+
+   function handleCategoryDelete(category) {
+      setBlog({
+         ...blog,
+         categories: blog.categories.filter((c) => c !== category),
+      });
    }
 
    function handleContentChange(content) {
@@ -138,7 +145,7 @@ export const CreateBlog = () => {
                      color: theme === "light" ? "white" : "black",
                   }}
                />
-               <div className="mt-2 px-1 flex gap-2 text-[14px] font-extralight">
+               <div className="mt-2 px-1 flex gap-2 text-[14px] font-extralight flex-wrap">
                   <select
                      style={{
                         borderColor: theme === "light" ? "black" : "white",
@@ -160,6 +167,21 @@ export const CreateBlog = () => {
                      <option value="Security"> Security</option>
                      <option value="Culture"> Culture</option>
                   </select>
+                  <div className="flex flex-wrap gap-2">
+                     {blog.categories.map((category) => (
+                        <div
+                           key={category}
+                           className="px-2 py-1 border rounded-sm flex gap-1 items-center justify-center"
+                        >
+                           <span>{category}</span>
+                           <button
+                              onClick={() => handleCategoryDelete(category)}
+                           >
+                              <Trash2Icon className="w-4 h-4 hover:text-red-500" />
+                           </button>
+                        </div>
+                     ))}
+                  </div>
                </div>
                <div
                   style={{

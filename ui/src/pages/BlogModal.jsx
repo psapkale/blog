@@ -36,6 +36,7 @@ export const BlogModal = () => {
    ];
    const user = userDetails();
    const { isLogin } = useContext(LoginContext);
+   const [scrollPercentage, setScrollPercentage] = useState(0);
 
    async function fetchBlog() {
       try {
@@ -72,12 +73,37 @@ export const BlogModal = () => {
    useEffect(() => {
       fetchBlog();
       window.scrollTo({ top: 0 });
+
+      const handleScroll = () => {
+         const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop;
+         const scrollHeight =
+            document.documentElement.scrollHeight -
+            document.documentElement.clientHeight;
+         const scrollPercent = (scrollTop / scrollHeight) * 100;
+         setScrollPercentage(scrollPercent);
+      };
+
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+         window.removeEventListener("scroll", handleScroll);
+      };
    }, []);
 
    return loading ? (
       <BlogModalShimmer />
    ) : (
       <div>
+         <div className="w-full bg-black h-[6px] fixed top-0 left-0 z-50 ">
+            <div
+               className="h-full transition-all duration-75"
+               style={{
+                  width: `${scrollPercentage}%`,
+                  backgroundColor: colors[index] || "white",
+               }}
+            />
+         </div>
          <>
             <img
                src={`/img${index}.jpg`}

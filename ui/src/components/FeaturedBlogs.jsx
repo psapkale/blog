@@ -46,14 +46,16 @@ export const FeaturedBlogs = ({ category = "All" }) => {
             {loading ? (
                <FeaturedBlogsShimmer />
             ) : (
-               blogs?.map((blog, i) => (
-                  <FeaturedBlogModal
-                     key={blog.id}
-                     category={category}
-                     blog={blog}
-                     i={i}
-                  />
-               ))
+               blogs
+                  .slice(0, 3)
+                  ?.map((blog, i) => (
+                     <FeaturedBlogModal
+                        key={blog.id}
+                        category={category}
+                        blog={blog}
+                        i={i}
+                     />
+                  ))
             )}
          </div>
       </div>

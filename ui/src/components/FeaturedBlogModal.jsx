@@ -25,7 +25,7 @@ export const FeaturedBlogModal = ({ category = "All", blog, i }) => {
    return (
       <Link
          to={`/${blog.categories[0].category.name}/${blog.title}`}
-         className="w-[33%] h-fit flex flex-col items-start"
+         className="w-[90%] sm:w-[33%] h-fit flex flex-col items-start"
       >
          <img
             src={`/img${index}.jpg`}
@@ -34,7 +34,7 @@ export const FeaturedBlogModal = ({ category = "All", blog, i }) => {
                backgroundColor:
                   theme === "light" ? colors[index] || "white" : "#cccccc",
             }}
-            className={`w-[96%] h-[196px] object-cover cursor-pointer`}
+            className={`w-[96%] h-[100px] sm:h-[196px] object-cover cursor-pointer`}
          />
          <div className="-translate-y-10 -translate-x-4">
             <h1
@@ -43,7 +43,7 @@ export const FeaturedBlogModal = ({ category = "All", blog, i }) => {
                      theme === "light" ? "black" : colors[index] || "white",
                   color: theme === "light" ? "white" : "black",
                }}
-               className="duration-200 px-2 py-1 hover:underline cursor-pointer"
+               className="text-lg font-bold sm:text-base sm:font-normal duration-200 px-2 py-1 hover:underline cursor-pointer"
             >
                {blog.title}
             </h1>

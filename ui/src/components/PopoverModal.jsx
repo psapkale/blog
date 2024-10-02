@@ -74,7 +74,7 @@ export const PopoverModal = ({ type, setIsOpen }) => {
 
    return createPortal(
       <div className="z-50 fixed top-0 left-0 w-screen h-screen bg-white bg-opacity-25 overflow-hidden flex items-center justify-center">
-         <div className="relative w-1/2 h-3/4 bg-white flex flex-col items-center justify-center rounded-lg border-2 border-black">
+         <div className="relative w-[90%] sm:w-1/2 h-3/4 bg-white flex flex-col items-center justify-center rounded-lg border-2 border-black">
             <button
                className="absolute top-2 right-2 p-1 rounded-lg"
                onClick={() => setIsOpen(false)}
@@ -87,7 +87,7 @@ export const PopoverModal = ({ type, setIsOpen }) => {
             <div className="w-full h-[80%] flex flex-col gap-2 items-center justify-center">
                {type === "signin" && (
                   <>
-                     <label htmlFor="userName" className="w-1/2">
+                     <label htmlFor="userName" className="w-[80%] sm:w-1/2">
                         Name
                      </label>
                      <input
@@ -95,11 +95,11 @@ export const PopoverModal = ({ type, setIsOpen }) => {
                         type="text"
                         value={userName}
                         onChange={(e) => setuserName(e.target.value)}
-                        className="mb-2 border border-black rounded-lg w-1/2 p-2"
+                        className="mb-2 border border-black rounded-lg w-[80%] sm:w-1/2 p-2"
                      />
                   </>
                )}
-               <label htmlFor="email" className="w-1/2">
+               <label htmlFor="email" className="w-[80%] sm:w-1/2">
                   Email
                </label>
                <input
@@ -109,9 +109,9 @@ export const PopoverModal = ({ type, setIsOpen }) => {
                   onChange={(e) => {
                      setEmail(e.target.value);
                   }}
-                  className="mb-2 border border-black rounded-lg w-1/2 p-2"
+                  className="mb-2 border border-black rounded-lg w-[80%] sm:w-1/2 p-2"
                />
-               <label htmlFor="password" className="w-1/2">
+               <label htmlFor="password" className="w-[80%] sm:w-1/2">
                   Password
                </label>
                <input
@@ -119,12 +119,12 @@ export const PopoverModal = ({ type, setIsOpen }) => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="mb-4 border border-black rounded-lg w-1/2 p-2"
+                  className="mb-4 border border-black rounded-lg w-[80%] sm:w-1/2 p-2"
                />
                <button
                   onClick={type === "signin" ? handleSignin : handleLogin}
                   disabled={loading}
-                  className={`bg-black text-white w-1/2 p-2 rounded-lg ${
+                  className={`bg-black text-white w-[80%] sm:w-1/2 p-2 py-3 sm:py-2 rounded-lg ${
                      loading && "cursor-wait"
                   }`}
                >

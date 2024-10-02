@@ -3,6 +3,7 @@ import { ThemeContext } from "../providers/themeProvider";
 import { Popover } from "./Popover";
 import { LoginContext } from "../providers/loginProvider";
 import { SearchHeroModal } from "./SearchHeroModal";
+import { Hamburger } from "./Hamburger";
 
 export const Navbar = () => {
    const { theme, setTheme } = useContext(ThemeContext);
@@ -52,13 +53,13 @@ export const Navbar = () => {
       <div
          className={`bg-black duration-300 delay-200 ${
             show ? "-translate-y-full" : "translate-y-0"
-         } w-full text-white flex items-center justify-between py-4 px-10 sticky top-0 z-20`}
+         } w-full text-white flex items-center justify-between py-4 px-6 sm:px-10 sticky top-0 z-20`}
       >
          <a href="/" className="text-[16px] font-[1000] cursor-pointer">
             Blog.dev
          </a>
          <div className="text-[12px] font-[100] flex gap-10 items-center justify-between">
-            <div className="relative group">
+            <div className="hidden sm:block relative group">
                <div className="cursor-pointer p-2 peer">Topic</div>
                <div className="bg-black absolute top-[38px] -left-[80px] px-8 py-4 text-[16px] text-nowrap flex flex-col gap-2 opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible transiton-all group-hover:translate-y-0 duration-300">
                   <a
@@ -105,24 +106,29 @@ export const Navbar = () => {
                   </a>
                </div>
             </div>
-            {isLogin ? (
-               <>
-                  <a href="/create" className="cursor-pointer hover:underline">
-                     Write Blog
-                  </a>
-                  <button
-                     onClick={handleLogout}
-                     className="cursor-pointer hover:underline"
-                  >
-                     Logout
-                  </button>
-               </>
-            ) : (
-               <>
-                  <Popover type="signin" />
-                  <Popover type="login" />
-               </>
-            )}
+            <div className="hidden sm:block">
+               {isLogin ? (
+                  <div className="flex gap-10">
+                     <a
+                        href="/create"
+                        className="cursor-pointer hover:underline"
+                     >
+                        Write Blog
+                     </a>
+                     <button
+                        onClick={handleLogout}
+                        className="cursor-pointer hover:underline"
+                     >
+                        Logout
+                     </button>
+                  </div>
+               ) : (
+                  <div className="flex gap-10">
+                     <Popover type="signin" />
+                     <Popover type="login" />
+                  </div>
+               )}
+            </div>
             <button className="cursor-pointer" onClick={toggleTheme}>
                <img
                   src="/button_dark-mode-new.svg"
@@ -140,6 +146,7 @@ export const Navbar = () => {
             {searchModalOpen && (
                <SearchHeroModal setSearchModalOpen={setSearchModalOpen} />
             )}
+            <Hamburger />
          </div>
       </div>
    );

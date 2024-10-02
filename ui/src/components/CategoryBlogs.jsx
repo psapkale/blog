@@ -48,7 +48,7 @@ export const CategoryBlogs = ({
    }, []);
 
    return (
-      <div className="w-[66%] mx-auto my-10 h-fit px-10">
+      <div className="w-full sm:w-[66%] mx-auto my-10 h-fit px-6 sm:px-10">
          <div
             style={{
                color: theme === "light" ? "black" : "white",
@@ -79,7 +79,7 @@ export const CategoryBlogs = ({
             {!allPostsByCategory && (
                <Link
                   to={type === "Latest" ? `/all-stories` : `/${type}`}
-                  className="text-[14px] underline hover:no-underline duration-100 cursor-pointer"
+                  className="hidden sm:block text-[14px] underline hover:no-underline duration-100 cursor-pointer"
                >
                   {type === "Latest" ? "See more" : "See all"}
                </Link>

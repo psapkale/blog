@@ -61,16 +61,16 @@ export const SearchBlogs = () => {
                   value={inputSearch}
                   onChange={handleInputChange}
                   placeholder="Search"
-                  className="w-[66vw] h-[20%] text-[50px] bg-black text-white py-6 px-1 border-b-2 placeholder:text-[#757575] focus:outline-none"
+                  className="w-[80vw] sm:w-[66vw] h-[20%] text-[40px] sm:text-[50px] bg-black text-white py-6 px-1 border-b-2 placeholder:text-[#757575] focus:outline-none"
                />
             </form>
          </div>
          {loading ? (
-            <div className="w-[66%] mx-auto my-10 h-[20vh]">
+            <div className="w-[80%] sm:w-[66%] mx-auto my-10 h-[20vh]">
                <h1>Loading..</h1>
             </div>
          ) : blogs.length === 0 ? (
-            <div className="w-[66%] mx-auto my-10 h-[20vh] flex items-center justify-center">
+            <div className="w-[80%] sm:w-[66%] mx-auto my-10 h-[20vh] flex items-center justify-center">
                <h1 className="tracking-[3px] text-[16px]">
                   // We couldn't find any articles. Try searching for something
                   else, or choose from one of our{" "}
@@ -81,7 +81,7 @@ export const SearchBlogs = () => {
                </h1>
             </div>
          ) : (
-            <div className="w-[66%] mx-auto my-10 h-fit px-10 mt-20 flex flex-col gap-20">
+            <div className="w-full sm:w-[66%] mx-auto my-10 h-fit px-6 sm:px-10 mt-20 flex flex-col gap-20">
                <div>
                   <div
                      style={{

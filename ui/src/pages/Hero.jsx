@@ -5,7 +5,7 @@ import { TypingWords } from "../components/TypingWords";
 
 function HeroContent() {
    return (
-      <div className="w-[66%] text-[#fff] h-fit mx-auto text-[3.6rem]">
+      <div className="hidden sm:block w-[66%] text-[#fff] h-fit mx-auto text-[3.6rem]">
          Blog.Dev(
          <TypingWords />)
       </div>
@@ -15,7 +15,7 @@ function HeroContent() {
 export const Hero = () => {
    return (
       <>
-         <HeroHeader content={<HeroContent />} />
+         <HeroHeader content={<HeroContent />} isHeroHeader />
          <FeaturedBlogs />
          <CategoryBlogs offset={6} />
          <CategoryBlogs type={"Application"} color="#b4dc19" offset={3} />

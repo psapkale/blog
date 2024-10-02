@@ -33,16 +33,16 @@ export const FeaturedBlogs = ({ category = "All" }) => {
    }, []);
 
    return (
-      <div className="w-[66%] mx-auto mt-20 h-fit px-10">
+      <div className="w-full sm:w-[66%] mx-auto mt-12 sm:mt-20 h-fit px-6 sm:px-10">
          <h1
             style={{
                color: theme === "light" ? "black" : "white",
             }}
-            className="text-[12px] font-[600]"
+            className="text-[16px] sm:text-[12px] font-[600]"
          >
             Featured
          </h1>
-         <div className="mt-10 flex gap-10 items-start justify-evenly">
+         <div className="mt-10 flex gap-2 sm:gap-10 flex-col sm:flex-row items-center sm:items-start justify-evenly">
             {loading ? (
                <FeaturedBlogsShimmer />
             ) : (

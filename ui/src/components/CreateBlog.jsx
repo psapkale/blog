@@ -128,24 +128,24 @@ export const CreateBlog = () => {
                   backgroundColor:
                      theme === "light" ? colors[index] || "white" : "#cccccc",
                }}
-               className="w-full h-[40vh]"
+               className="w-full h-[30vh] sm:h-[40vh]"
             />
          </>
-         <div className="relative w-[70vw] mx-auto">
-            <div className="absolute -top-12">
+         <div className="relative w-[90vw] sm:w-[70vw] mx-auto">
+            <div className="absolute -top-12 max-w-[90vw]">
                <textarea
                   required
                   placeholder={
                      "Bye Bye Bye...: Evolution of repeated token attacks on ChatGPT models"
                   }
                   onChange={handleTitleChange}
-                  className="w-[70vw] p-2 text-[50px] font-[800]"
+                  className="w-[90vw] sm:w-[70vw] p-2 text-[20px] sm:text-[50px] font-[800]"
                   style={{
                      backgroundColor: theme === "light" ? "black" : "white",
                      color: theme === "light" ? "white" : "black",
                   }}
                />
-               <div className="mt-2 px-1 flex gap-2 text-[14px] font-extralight flex-wrap">
+               <div className="mt-2 px-1 flex gap-2 text-[10px] sm:text-[14px] font-extralight flex-wrap">
                   <select
                      style={{
                         borderColor: theme === "light" ? "black" : "white",
@@ -187,7 +187,7 @@ export const CreateBlog = () => {
                   style={{
                      color: theme === "light" ? "black" : "white",
                   }}
-                  className="mt-20 w-[70%] mx-auto"
+                  className="mt-20 w-full overflow-x-hidden sm:w-[70%] mx-auto"
                >
                   <Editor
                      content={blog?.content}
@@ -195,7 +195,7 @@ export const CreateBlog = () => {
                      editable={true}
                   />
                </div>
-               <div className="w-full flex items-center justify-end">
+               <div className="mt-10 w-full flex items-center justify-end">
                   <button
                      style={{
                         backgroundColor: theme === "light" ? "black" : "white",

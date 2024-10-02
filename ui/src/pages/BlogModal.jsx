@@ -112,14 +112,14 @@ export const BlogModal = () => {
                   backgroundColor:
                      theme === "light" ? colors[index] || "white" : "#cccccc",
                }}
-               className="w-full h-[40vh]"
+               className="w-full h-[30vh] sm:h-[40vh] object-cover"
             />
          </>
-         <div className="relative w-[70vw] mx-auto">
+         <div className="relative w-[90vw] sm:w-[70vw] mx-auto">
             {blog && (
                <div className="absolute -top-12">
                   <h1
-                     className="w-[70vw] p-2 text-[50px] font-[800]"
+                     className="w-[90vw] sm:w-[70vw] p-2 text-[20px] sm:text-[50px] font-[800]"
                      style={{
                         backgroundColor:
                            theme === "light"
@@ -145,7 +145,7 @@ export const BlogModal = () => {
                      style={{
                         color: theme === "light" ? "black" : "white",
                      }}
-                     className="mt-20 w-[80%] mx-auto"
+                     className="mt-20 w-full sm:w-[80%] sm:mx-auto"
                   >
                      <Editor
                         content={blog?.content}

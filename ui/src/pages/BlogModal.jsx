@@ -1,6 +1,5 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { shuffleNumbers } from "../utils/shuffleNumbers";
 import { ThemeContext } from "../providers/themeProvider";
 import { monthString } from "../utils/monthString";
 import { Editor } from "../components/EditorSpace";
@@ -9,6 +8,7 @@ import axios from "axios";
 import { userDetails } from "../utils/userDetails";
 import { LoginContext } from "../providers/loginProvider";
 import { BlogModalShimmer } from "../loaders/BlogModalShimmer";
+import { useColors } from "../utils/useColors";
 
 export const BlogModal = () => {
    const [editable, setEditable] = useState(false);
@@ -16,24 +16,12 @@ export const BlogModal = () => {
    const [blog, setBlog] = useState();
    const [loading, setLoading] = useState(false);
    const { category, title } = useParams();
-   const shuffledIndex = useMemo(() => shuffleNumbers(), []);
-   const index = useMemo(
-      () => shuffledIndex[Math.floor(Math.random() * 6)],
-      []
-   );
    const s = blog ? blog.createdAt : "";
    const month = monthString(s.slice(5, 7));
    const date = s.slice(8, 10);
    const year = s.slice(0, 4);
    const createdAt = month + " " + date + ", " + year;
-   const colors = [
-      "#b4c8e1",
-      "#ffafa5",
-      "#c8aff0",
-      "#fad24b",
-      "#14c8eb",
-      "#ff8c19",
-   ];
+   const { colors, index } = useColors();
    const user = userDetails();
    const { isLogin } = useContext(LoginContext);
    const [scrollPercentage, setScrollPercentage] = useState(0);

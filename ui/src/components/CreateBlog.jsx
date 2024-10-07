@@ -1,30 +1,18 @@
 import { toast } from "react-hot-toast";
 import { userDetails } from "../utils/userDetails";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../providers/themeProvider";
 import { Editor } from "./EditorSpace";
-import { shuffleNumbers } from "../utils/shuffleNumbers";
 import axios from "axios";
 import { Delete, Trash, Trash2, Trash2Icon } from "lucide-react";
+import { useColors } from "../utils/useColors";
 
 export const CreateBlog = () => {
    const { theme } = useContext(ThemeContext);
    const user = userDetails();
    const navigate = useNavigate();
-   const shuffledIndex = useMemo(() => shuffleNumbers(), []);
-   const index = useMemo(
-      () => shuffledIndex[Math.floor(Math.random() * 6)],
-      []
-   );
-   const colors = [
-      "#b4c8e1",
-      "#ffafa5",
-      "#c8aff0",
-      "#fad24b",
-      "#14c8eb",
-      "#ff8c19",
-   ];
+   const { colors, index } = useColors();
    const [blog, setBlog] = useState({
       title: "",
       categories: [],

@@ -1,26 +1,17 @@
-import { useContext, useMemo } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../providers/themeProvider";
 import { monthString } from "../utils/monthString";
 import { Link } from "react-router-dom";
-import { shuffleNumbers } from "../utils/shuffleNumbers";
+import { useColors } from "../utils/useColors";
 
 export const FeaturedBlogModal = ({ category = "All", blog, i }) => {
    const { theme } = useContext(ThemeContext);
-   const shuffledIndex = useMemo(() => shuffleNumbers(), []);
-   const index = shuffledIndex[i];
    const s = blog.createdAt;
    const month = monthString(s.slice(5, 7));
    const date = s.slice(8, 10);
    const year = s.slice(0, 4);
    const createdAt = month + " " + date + ", " + year;
-   const colors = [
-      "#b4c8e1",
-      "#ffafa5",
-      "#c8aff0",
-      "#fad24b",
-      "#14c8eb",
-      "#ff8c19",
-   ];
+   const { colors, index } = useColors();
 
    return (
       <Link

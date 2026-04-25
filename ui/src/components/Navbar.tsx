@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { ThemeContext } from "../providers/ThemeProvider";
+import { ThemeContext } from "@providers/ThemeProvider";
 import { Popover } from "./Popover";
-import { LoginContext } from "../providers/LoginProvider";
+import { LoginContext } from "@providers/LoginProvider";
 import { SearchHeroModal } from "./SearchHeroModal";
 import { Hamburger } from "./Hamburger";
 

@@ -14,7 +14,6 @@
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "types": ["vite/client"],
-    "allowImportingTsExtensions": true,
     "target": "ES6",
     "lib": ["DOM", "ES6"],
     "jsx": "react-jsx",

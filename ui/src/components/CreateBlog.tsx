@@ -1,12 +1,12 @@
 import { toast } from "react-hot-toast";
-import { userDetails } from "../utils/userDetails";
+import { userDetails } from "@utils/userDetails";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { ThemeContext } from "../providers/ThemeProvider";
+import { ThemeContext } from "@providers/ThemeProvider";
 import { Editor } from "./EditorSpace";
 import axios from "axios";
-import { Delete, Trash, Trash2, Trash2Icon } from "lucide-react";
-import { useColors } from "../utils/useColors";
+import { Trash2Icon } from "lucide-react";
+import { useColors } from "@utils/useColors";
 
 export const CreateBlog = () => {
    const { theme } = useContext(ThemeContext);
@@ -111,7 +111,7 @@ export const CreateBlog = () => {
          <>
             <img
                src={`/img${index}.jpg`}
-               alt={index}
+               alt={index.toString()}
                style={{
                   backgroundColor:
                      theme === "light" ? colors[index] || "white" : "#cccccc",

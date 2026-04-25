@@ -1,9 +1,30 @@
 import { useContext } from "react";
-import { ThemeContext } from "../providers/ThemeProvider";
-import { monthString } from "../utils/monthString";
+import { ThemeContext } from "@providers/ThemeProvider";
+import { monthString } from "@utils/monthString";
 import { Link } from "react-router-dom";
+import { CategoryType } from "./CategoryBlogs";
 
-export const CategoryBlogModal = ({ blog, type }) => {
+export interface Blog {
+   id: string;
+   author: {
+      name: string;
+   };
+   content: string;
+   title: string;
+   createdAt: string;
+   categories: {
+      category: {
+         name: string;
+      };
+   }[];
+}
+
+interface CategoryBlogModalProps {
+   blog: Blog,
+   type?: CategoryType;
+}
+
+export const CategoryBlogModal = ({ blog, type }: CategoryBlogModalProps) => {
    const { theme } = useContext(ThemeContext);
    const s = blog.createdAt;
    const month = monthString(s.slice(5, 7));

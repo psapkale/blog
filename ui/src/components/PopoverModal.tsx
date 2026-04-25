@@ -5,11 +5,16 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { LoginContext } from "../providers/LoginProvider";
 
-export const PopoverModal = ({ type, setIsOpen }) => {
-   const [userName, setuserName] = useState();
+interface PopoverModalProps {
+   type: "signin" | "login";
+   setIsOpen: (isOpen: boolean) => void;
+}
+
+export const PopoverModal = ({ type, setIsOpen }: PopoverModalProps) => {
+   const [userName, setuserName] = useState<string>();
    // ? validation for email and password
-   const [email, setEmail] = useState();
-   const [password, setPassword] = useState();
+   const [email, setEmail] = useState<string>();
+   const [password, setPassword] = useState<string>();
    const [loading, setLoading] = useState(false);
    const { setIsLogin } = useContext(LoginContext);
    const emailReg = /^[^@]+@[^@]+.[^@]+$/;
@@ -36,10 +41,11 @@ export const PopoverModal = ({ type, setIsOpen }) => {
          sessionStorage.setItem("userDetails", JSON.stringify(userData));
          setIsLogin(true);
          toast.success("Signin Successful");
-         setLoading(false);
          setIsOpen(false);
       } catch (err) {
          toast.error(err.response.data.error);
+      } finally {
+         setLoading(false);
       }
    }
 
@@ -65,10 +71,12 @@ export const PopoverModal = ({ type, setIsOpen }) => {
          sessionStorage.setItem("userDetails", JSON.stringify(userData));
          setIsLogin(true);
          toast.success("Signin Successful");
-         setLoading(false);
          setIsOpen(false);
       } catch (err) {
          toast.error(err.response.data.error);
+      }
+      finally {
+         setLoading(false);
       }
    }
 
@@ -94,8 +102,9 @@ export const PopoverModal = ({ type, setIsOpen }) => {
                         id="userName"
                         type="text"
                         value={userName}
+                        disabled={loading}
                         onChange={(e) => setuserName(e.target.value)}
-                        className="mb-2 border border-black rounded-lg w-[80%] sm:w-1/2 p-2"
+                        className="mb-2 border border-black rounded-lg w-[80%] sm:w-1/2 p-2 disabled:opacity-50 disabled:cursor-not-allowed"
                      />
                   </>
                )}
@@ -106,10 +115,11 @@ export const PopoverModal = ({ type, setIsOpen }) => {
                   id="email"
                   type="email"
                   value={email}
+                  disabled={loading}
                   onChange={(e) => {
                      setEmail(e.target.value);
                   }}
-                  className="mb-2 border border-black rounded-lg w-[80%] sm:w-1/2 p-2"
+                  className="mb-2 border border-black rounded-lg w-[80%] sm:w-1/2 p-2 disabled:opacity-50 disabled:cursor-not-allowed"
                />
                <label htmlFor="password" className="w-[80%] sm:w-1/2">
                   Password
@@ -118,14 +128,15 @@ export const PopoverModal = ({ type, setIsOpen }) => {
                   id="password"
                   type="password"
                   value={password}
+                  disabled={loading}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="mb-4 border border-black rounded-lg w-[80%] sm:w-1/2 p-2"
+                  className="mb-4 border border-black rounded-lg w-[80%] sm:w-1/2 p-2 disabled:opacity-50 disabled:cursor-not-allowed"
                />
                <button
                   onClick={type === "signin" ? handleSignin : handleLogin}
                   disabled={loading}
                   className={`bg-black text-white w-[80%] sm:w-1/2 p-2 py-3 sm:py-2 rounded-lg ${
-                     loading && "cursor-wait"
+                     loading && "cursor-wait disabled:opacity-50"
                   }`}
                >
                   {type === "signin" ? "Signin" : "Login"}

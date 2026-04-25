@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { SearchBlogModal } from "./SearchBlogModal";
-import { ThemeContext } from "../providers/ThemeProvider";
+import { ThemeContext } from "@providers/ThemeProvider";
 
 export const SearchBlogs = () => {
    const { theme } = useContext(ThemeContext);
@@ -12,11 +12,11 @@ export const SearchBlogs = () => {
    const [blogs, setBlogs] = useState([]);
    const [loading, setLoading] = useState(false);
 
-   function handleInputChange(e) {
+   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
       setInputSearch(e.target.value);
    }
 
-   function handleSearch(e) {
+   function handleSearch(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
       if (inputSearch !== "") {
          const value = inputSearch.trim();

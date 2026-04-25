@@ -1,6 +1,6 @@
 interface HeroHeaderProps {
    content: React.ReactNode;
-   isHeroHeader: boolean;
+   isHeroHeader?: boolean;
 }
 
 export const HeroHeader = ({ content, isHeroHeader }: HeroHeaderProps) => {

@@ -2,15 +2,19 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const SearchHeroModal = ({ setSearchModalOpen }) => {
+interface SearchHeroModalProps {
+   setSearchModalOpen: (isOpen: boolean) => void;
+}
+
+export const SearchHeroModal = ({ setSearchModalOpen }: SearchHeroModalProps) => {  
    const [q, setQ] = useState("");
    const navigate = useNavigate();
 
-   function handleInputChange(e) {
+   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
       setQ(e.target.value);
    }
 
-   function handleSubmit(e) {
+   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
       if (q !== "") {
          navigate(`/search-results?q=${q}`);

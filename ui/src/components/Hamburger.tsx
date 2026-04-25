@@ -1,7 +1,7 @@
 import { Tally2, X } from "lucide-react";
 import { useContext, useState } from "react";
 import { Popover } from "./Popover";
-import { LoginContext } from "../providers/LoginProvider";
+import { LoginContext } from "@providers/LoginProvider";
 
 export const Hamburger = () => {
    const [showSidebar, setShowSidebar] = useState(false);

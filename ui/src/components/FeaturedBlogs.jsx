@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../providers/themeProvider";
 import { FeaturedBlogModal } from "./FeaturedBlogModal";
 import { toast } from "react-hot-toast";

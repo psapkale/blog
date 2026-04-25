@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { ThemeContext } from "../providers/themeProvider";
-import { monthString } from "../utils/monthString";
+import { ThemeContext } from "@providers/ThemeProvider";
+import { monthString } from "@utils/monthString";
 import { Link } from "react-router-dom";
-import { useColors } from "../utils/useColors";
+import { useColors } from "@utils/useColors";
 
 export const FeaturedBlogModal = ({ category = "All", blog, i }) => {
    const { theme } = useContext(ThemeContext);
@@ -20,7 +20,7 @@ export const FeaturedBlogModal = ({ category = "All", blog, i }) => {
       >
          <img
             src={`/img${index}.jpg`}
-            alt={index}
+            alt={index.toString()}
             style={{
                backgroundColor:
                   theme === "light" ? colors[index] || "white" : "#cccccc",

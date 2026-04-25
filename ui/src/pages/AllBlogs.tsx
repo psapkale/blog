@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { CategoryBlogModal } from "../components/CategoryBlogModal";
-import { CategoryBlogShimmer } from "../loaders/CategoryBlogShimmer";
-import { ThemeContext } from "../providers/themeProvider";
+import { CategoryBlogModal } from "@components/CategoryBlogModal";
+import { CategoryBlogShimmer } from "@loaders/CategoryBlogShimmer";
+import { ThemeContext } from "@providers/ThemeProvider";
 import axios from "axios";
-import { HeroHeader } from "../components/HeroHeader";
+import { HeroHeader } from "@components/HeroHeader";
 
 function HeroContent() {
    return (
@@ -15,7 +15,7 @@ function HeroContent() {
 
 export const AllBlogs = () => {
    const { theme } = useContext(ThemeContext);
-   const [blogs, setBlogs] = useState();
+   const [blogs, setBlogs] = useState([]);
    const [loading, setLoading] = useState(true);
 
    async function fetchBlogs() {
@@ -50,8 +50,8 @@ export const AllBlogs = () => {
             <div className="my-10 flex flex-col gap-6 items-start justify-evenly">
                {loading ? (
                   <CategoryBlogShimmer />
-               ) : blogs.length > 0 ? (
-                  blogs.map((blog) => (
+               ) : blogs && blogs.length > 0 ? (
+                  blogs?.map((blog) => (
                      <CategoryBlogModal key={blog.id} blog={blog} />
                   ))
                ) : (

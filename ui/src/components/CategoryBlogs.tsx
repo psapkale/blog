@@ -1,17 +1,35 @@
 import { useContext, useEffect, useState } from "react";
-import { ThemeContext } from "../providers/themeProvider";
+import { ThemeContext } from "../providers/ThemeProvider";
 import { CategoryBlogModal } from "./CategoryBlogModal";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { CategoryBlogShimmer } from "../loaders/CategoryBlogShimmer";
 import { Link } from "react-router-dom";
 
+export enum CategoryType {
+   Latest = "Latest",
+   Application = "Application",
+   FrontEnd = "FrontEnd",
+   Infrastructure = "Infrastructure",
+   MachineLearning = "MachineLearning",
+   Mobile = "Mobile",
+   Security = "Security",
+   Culture = "Culture",
+}
+
+interface CategoryBlogsProps {
+   type?: CategoryType;
+   color?: string;
+   offset?: number;
+   allPostsByCategory?: boolean;
+}
+
 export const CategoryBlogs = ({
-   type = "Latest",
+   type = CategoryType.Latest,
    color = "white",
    offset,
    allPostsByCategory,
-}) => {
+}: CategoryBlogsProps) => {
    const { theme } = useContext(ThemeContext);
    const [blogs, setBlogs] = useState([]);
    const [loading, setLoading] = useState(false);
@@ -20,11 +38,11 @@ export const CategoryBlogs = ({
       try {
          setLoading(true);
          let res;
-         if (type === "Latest") {
+         if (type === CategoryType.Latest) {
             res = await axios.get(
                `${import.meta.env.VITE_BLOG_SERVER_URL}/latest/${offset}`
             );
-         } else if (type !== "Latest" && allPostsByCategory) {
+         } else if (allPostsByCategory) {
             res = await axios.get(
                `${import.meta.env.VITE_BLOG_SERVER_URL}/all/${type}`
             );
@@ -59,13 +77,11 @@ export const CategoryBlogs = ({
                <Link
                   to={`/${type}`}
                   style={{
-                     backgroundColor: type !== "Latest" && color,
+                     backgroundColor: color,
                   }}
                   className={`
                   ${
-                     type === "Latest"
-                        ? theme === "dark" && "text-white"
-                        : "py-2 px-3 hover:underline cursor-pointer"
+                     "py-2 px-3 hover:underline cursor-pointer"
                   }
                      `}
                >
@@ -78,10 +94,10 @@ export const CategoryBlogs = ({
             )}
             {!allPostsByCategory && (
                <Link
-                  to={type === "Latest" ? `/all-stories` : `/${type}`}
+                  to={type === CategoryType.Latest ? `/all-stories` : `/${type}`}
                   className="hidden sm:block text-[14px] underline hover:no-underline duration-100 cursor-pointer"
                >
-                  {type === "Latest" ? "See more" : "See all"}
+                  {type === CategoryType.Latest ? "See more" : "See all"}
                </Link>
             )}
          </div>

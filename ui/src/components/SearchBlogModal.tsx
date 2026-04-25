@@ -1,9 +1,15 @@
 import { useContext } from "react";
-import { ThemeContext } from "../providers/themeProvider";
+import { ThemeContext } from "@providers/ThemeProvider";
 import { Link } from "react-router-dom";
-import { monthString } from "../utils/monthString";
+import { monthString } from "@utils/monthString";
+import { Blog } from "./CategoryBlogModal";
 
-export const SearchBlogModal = ({ blog, spotlightText }) => {
+interface SearchBlogModalProps {
+   blog: Blog;
+   spotlightText: string;
+}
+
+export const SearchBlogModal = ({ blog, spotlightText }: SearchBlogModalProps) => {
    const { theme } = useContext(ThemeContext);
    const s = blog.createdAt;
    const month = monthString(s.slice(5, 7));

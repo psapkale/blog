@@ -1,21 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ThemeContext } from "../providers/themeProvider";
-import { monthString } from "../utils/monthString";
-import { Editor } from "../components/EditorSpace";
+   import { ThemeContext } from "@providers/ThemeProvider";
+import { monthString } from "@utils/monthString";
+import { Editor } from "@components/EditorSpace";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { userDetails } from "../utils/userDetails";
-import { LoginContext } from "../providers/loginProvider";
-import { BlogModalShimmer } from "../loaders/BlogModalShimmer";
-import { useColors } from "../utils/useColors";
+import { userDetails } from "@utils/userDetails";
+import { LoginContext } from "@providers/LoginProvider";
+import { BlogModalShimmer } from "@loaders/BlogModalShimmer";
+import { useColors } from "@utils/useColors";
+import { Blog } from "@components/CategoryBlogModal";
 
 export const BlogModal = () => {
-   const [editable, setEditable] = useState(false);
    const { theme } = useContext(ThemeContext);
-   const [blog, setBlog] = useState();
+   const [blog, setBlog] = useState<Blog | null>(null);
    const [loading, setLoading] = useState(false);
-   const { category, title } = useParams();
+   const { title } = useParams();
    const s = blog ? blog.createdAt : "";
    const month = monthString(s.slice(5, 7));
    const date = s.slice(8, 10);
@@ -39,7 +39,7 @@ export const BlogModal = () => {
       }
    }
 
-   async function onChange(newContent) {
+   async function onChange(newContent: string) {
       try {
          const res = await axios.put(
             `${import.meta.env.VITE_BLOG_SERVER_URL}/update/${title}`,
@@ -95,7 +95,7 @@ export const BlogModal = () => {
          <>
             <img
                src={`/img${index}.jpg`}
-               alt={index}
+               alt={index.toString()}
                style={{
                   backgroundColor:
                      theme === "light" ? colors[index] || "white" : "#cccccc",
@@ -125,7 +125,7 @@ export const BlogModal = () => {
                      className="mt-2 px-1 flex gap-2 text-[14px] font-extralight"
                   >
                      <b className="text-[15px] font-[600]">/ /</b>
-                     <h1 className="">{blog?.author?.name}</h1>
+                     <h1 className="">{blog?.author.name}</h1>
                      <>•</>
                      <h1>{createdAt}</h1>
                   </div>
@@ -136,7 +136,7 @@ export const BlogModal = () => {
                      className="mt-20 w-full sm:w-[80%] sm:mx-auto"
                   >
                      <Editor
-                        content={blog?.content}
+                        content={blog?.content as string}
                         onChange={onChange}
                         editable={isLogin}
                      />

@@ -1,4 +1,9 @@
-export const HeroHeader = ({ content, isHeroHeader }) => {
+interface HeroHeaderProps {
+   content: React.ReactNode;
+   isHeroHeader?: boolean;
+}
+
+export const HeroHeader = ({ content, isHeroHeader }: HeroHeaderProps) => {
    return (
       <div
          className={`${

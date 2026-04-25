@@ -1,11 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import { ThemeContext } from "../providers/themeProvider";
-import { FeaturedBlogModal } from "./FeaturedBlogModal";
+import { ThemeContext } from "@providers/ThemeProvider";
+import { FeaturedBlogModal } from "@components/FeaturedBlogModal";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { FeaturedBlogsShimmer } from "../loaders/FeaturedBlogsShimmer";
+import { FeaturedBlogsShimmer } from "@loaders/FeaturedBlogsShimmer";
 
-export const FeaturedBlogs = ({ category = "All" }) => {
+interface FeaturedBlogsProps {
+   category?: string;
+}
+
+export const FeaturedBlogs = ({ category = "All" }: FeaturedBlogsProps) => {
    const { theme } = useContext(ThemeContext);
    const [blogs, setBlogs] = useState([]);
    const [loading, setLoading] = useState(false);

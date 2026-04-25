@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { SearchBlogModal } from "./SearchBlogModal";
-import { ThemeContext } from "../providers/themeProvider";
+import { ThemeContext } from "../providers/ThemeProvider";
 
 export const SearchBlogs = () => {
    const { theme } = useContext(ThemeContext);

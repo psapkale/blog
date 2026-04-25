@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ThemeContext } from "../providers/themeProvider";
+import { ThemeContext } from "../providers/ThemeProvider";
 import { monthString } from "../utils/monthString";
 import { Link } from "react-router-dom";
 

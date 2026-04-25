@@ -3,7 +3,7 @@ import { X } from "lucide-react";
 import { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { LoginContext } from "../providers/loginProvider";
+import { LoginContext } from "../providers/LoginProvider";
 
 export const PopoverModal = ({ type, setIsOpen }) => {
    const [userName, setuserName] = useState();

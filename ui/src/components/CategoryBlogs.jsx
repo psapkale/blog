@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { ThemeContext } from "../providers/themeProvider";
+import { ThemeContext } from "../providers/ThemeProvider";
 import { CategoryBlogModal } from "./CategoryBlogModal";
 import { toast } from "react-hot-toast";
 import axios from "axios";

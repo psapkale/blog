@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Navbar } from "./components/Navbar";
-import { ThemeContext } from "./providers/themeProvider";
+import { Navbar } from "@components/Navbar";
 import { Hero } from "./pages/Hero";
-import { BlogModal } from "./pages/BlogModal";
+import { BlogModal } from "@pages/BlogModal";
 import { Toaster } from "react-hot-toast";
-import { CreateBlog } from "./components/CreateBlog";
-import { LoginContext } from "./providers/loginProvider";
-import { CategoryModal } from "./pages/CategoryModal";
-import { AllBlogs } from "./pages/AllBlogs";
-import { SearchBlogs } from "./components/SearchBlogs";
+import { CreateBlog } from "@components/CreateBlog";
+import { CategoryModal } from "@pages/CategoryModal";
+import { AllBlogs } from "@pages/AllBlogs";
+import { SearchBlogs } from "@components/SearchBlogs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ThemeContext } from "@providers/ThemeProvider.tsx";
+import { LoginContext } from "@providers/LoginProvider.tsx";
 
 const queryClient = new QueryClient();
 

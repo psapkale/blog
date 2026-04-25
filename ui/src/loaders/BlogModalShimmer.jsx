@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ThemeContext } from "../providers/themeProvider";
+import { ThemeContext } from "../providers/ThemeProvider";
 
 export const BlogModalShimmer = () => {
    const { theme } = useContext(ThemeContext);

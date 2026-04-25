@@ -2,7 +2,7 @@ import { toast } from "react-hot-toast";
 import { userDetails } from "../utils/userDetails";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { ThemeContext } from "../providers/themeProvider";
+import { ThemeContext } from "../providers/ThemeProvider";
 import { Editor } from "./EditorSpace";
 import axios from "axios";
 import { Delete, Trash, Trash2, Trash2Icon } from "lucide-react";

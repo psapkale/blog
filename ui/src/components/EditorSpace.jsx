@@ -2,7 +2,7 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import { useCreateBlockNote } from "@blocknote/react";
 import { useContext } from "react";
-import { ThemeContext } from "../providers/themeProvider";
+import { ThemeContext } from "../providers";
 
 export const Editor = ({ content, onChange, editable }) => {
    const parsedContent = content ? content : undefined;

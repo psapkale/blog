@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CategoryBlogModal } from "../components/CategoryBlogModal";
 import { CategoryBlogShimmer } from "../loaders/CategoryBlogShimmer";
-import { ThemeContext } from "../providers/themeProvider";
+import { ThemeContext } from "../providers/ThemeProvider";
 import axios from "axios";
 import { HeroHeader } from "../components/HeroHeader";
 

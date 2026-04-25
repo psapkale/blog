@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ThemeContext } from "../providers/themeProvider";
+import { ThemeContext } from "../providers/ThemeProvider";
 import { monthString } from "../utils/monthString";
 import { Editor } from "../components/EditorSpace";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { userDetails } from "../utils/userDetails";
-import { LoginContext } from "../providers/loginProvider";
+import { LoginContext } from "../providers/LoginProvider";
 import { BlogModalShimmer } from "../loaders/BlogModalShimmer";
 import { useColors } from "../utils/useColors";
 
